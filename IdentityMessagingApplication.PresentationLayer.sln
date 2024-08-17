@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityMessagingApplication.PresentationLayer", "IdentityMessagingApplication.PresentationLayer\IdentityMessagingApplication.PresentationLayer.csproj", "{AEDB0D80-8C77-482B-A762-AABC2B4F44FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityMessagingApplication.EntityLayer", "IdentityMessagingApplication.EntityLayer\IdentityMessagingApplication.EntityLayer.csproj", "{0E94E338-1DB3-4CC6-8470-B006F530A370}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityMessagingApplication.BusinessLayer", "IdentityMessagingApplication.BusinessLayer\IdentityMessagingApplication.BusinessLayer.csproj", "{A2292000-F794-435E-9D08-262408FEF8D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityMessagingApplication.DataAccessLayer", "IdentityMessagingApplication.DataAccessLayer\IdentityMessagingApplication.DataAccessLayer.csproj", "{186188D9-9F08-4BBF-BDC7-0B760B6A6190}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityMessagingApplication.DtoLayer", "IdentityMessagingApplication.DtoLayer\IdentityMessagingApplication.DtoLayer.csproj", "{EDF3C697-02AC-4CF4-AA52-C33CFE4DE604}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEDB0D80-8C77-482B-A762-AABC2B4F44FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEDB0D80-8C77-482B-A762-AABC2B4F44FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEDB0D80-8C77-482B-A762-AABC2B4F44FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEDB0D80-8C77-482B-A762-AABC2B4F44FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E94E338-1DB3-4CC6-8470-B006F530A370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E94E338-1DB3-4CC6-8470-B006F530A370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E94E338-1DB3-4CC6-8470-B006F530A370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E94E338-1DB3-4CC6-8470-B006F530A370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2292000-F794-435E-9D08-262408FEF8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2292000-F794-435E-9D08-262408FEF8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2292000-F794-435E-9D08-262408FEF8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2292000-F794-435E-9D08-262408FEF8D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{186188D9-9F08-4BBF-BDC7-0B760B6A6190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{186188D9-9F08-4BBF-BDC7-0B760B6A6190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{186188D9-9F08-4BBF-BDC7-0B760B6A6190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{186188D9-9F08-4BBF-BDC7-0B760B6A6190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF3C697-02AC-4CF4-AA52-C33CFE4DE604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF3C697-02AC-4CF4-AA52-C33CFE4DE604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF3C697-02AC-4CF4-AA52-C33CFE4DE604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF3C697-02AC-4CF4-AA52-C33CFE4DE604}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6989C24-67DA-4A1A-AB7A-7D02FC54E4E4}
+	EndGlobalSection
+EndGlobal
