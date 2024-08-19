@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IdentityMessagingApplication.EntityLayer\IdentityMessagingApplication.EntityLayer.csproj" />
+  </ItemGroup>
+
 </Project>

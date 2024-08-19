@@ -1,8 +1,22 @@
+using AutoMapper;
+using IdentityMessagingApplication.BusinessLayer.Abstract;
+using IdentityMessagingApplication.BusinessLayer.Concrete;
+using IdentityMessagingApplication.DataAccessLayer.Abstract;
+using IdentityMessagingApplication.DataAccessLayer.Context;
+using IdentityMessagingApplication.DataAccessLayer.EntityFramework;
+using IdentityMessagingApplication.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddScoped<IMessageDAL, EFMessageDAL>();
+builder.Services.AddScoped<IMessageService, MessageManager>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ProjectContext>();
+builder.Services.AddDbContext<ProjectContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,10 +33,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Dashboard}/{action=Index}/{id?}");
 
 app.Run();
 
