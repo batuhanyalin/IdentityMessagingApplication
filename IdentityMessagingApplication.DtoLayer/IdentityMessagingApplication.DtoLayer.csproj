@@ -6,14 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="LoginDtos\" />
-    <Folder Include="RegisterDtos\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\IdentityMessagingApplication.DataAccessLayer\IdentityMessagingApplication.DataAccessLayer.csproj" />
-    <ProjectReference Include="..\IdentityMessagingApplication.PresentationLayer\IdentityMessagingApplication.PresentationLayer.csproj" />
-  </ItemGroup>
-
 </Project>

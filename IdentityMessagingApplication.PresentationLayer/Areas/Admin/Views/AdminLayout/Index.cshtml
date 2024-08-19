@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+@await Component.InvokeAsync("_HeadComponentPartial")
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <!-- Navbar -->
+        @await Component.InvokeAsync("_NavbarComponentPartial")
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->      
+        @await Component.InvokeAsync("_SideBarComponentPartial")
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>   
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
+        @await Component.InvokeAsync("_FooterComponentPartial")
+    </div>
+    <!-- ./wrapper -->
+    @await Component.InvokeAsync("_ScriptsComponentPartial")
+</body>
+</html>
