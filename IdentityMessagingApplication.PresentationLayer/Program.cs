@@ -14,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMessageDAL, EFMessageDAL>();
 builder.Services.AddScoped<IMessageService, MessageManager>();
+builder.Services.AddScoped<IAppUserDAL, EFAppUserDAL>();
+builder.Services.AddScoped<IAppUserService,AppUserManager>();
+
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ProjectContext>();
 builder.Services.AddDbContext<ProjectContext>();

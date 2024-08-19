@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using IdentityMessagingApplication.DtoLayer.LoginDtos;
 using IdentityMessagingApplication.DtoLayer.MessageDtos;
+using IdentityMessagingApplication.DtoLayer.UserDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
 
 namespace IdentityMessagingApplication.PresentationLayer.Mapping
@@ -13,6 +15,11 @@ namespace IdentityMessagingApplication.PresentationLayer.Mapping
             CreateMap<Message, JunkMessageListDto>().ReverseMap();
             CreateMap<Message, SentMessageListDto>().ReverseMap();
             CreateMap<Message, DraftMessageListDto>().ReverseMap();
+
+            CreateMap<AppUser, CreateUserDto>().ReverseMap();
+            CreateMap<AppUser, ListUserDto>().ReverseMap();
+            CreateMap<AppUser, UpdateUserDto>().ReverseMap();
+            CreateMap<AppUser, LoginDto>().ReverseMap();
         }
     }
 }

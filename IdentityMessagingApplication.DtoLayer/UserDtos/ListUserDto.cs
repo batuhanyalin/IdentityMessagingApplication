@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IdentityMessagingApplication.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityMessagingApplication.EntityLayer.Concrete
+namespace IdentityMessagingApplication.DtoLayer.UserDtos
 {
-    public class AppUser:IdentityUser<int>
+    public class ListUserDto
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
         public string Name { get; set; }
+        public string UserName { get; set; }
         public string Surname { get; set; }
         public string City { get; set; }
         public string Phone { get; set; }

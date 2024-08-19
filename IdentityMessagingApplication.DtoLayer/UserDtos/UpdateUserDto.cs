@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using IdentityMessagingApplication.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IdentityMessagingApplication.EntityLayer.Concrete
+namespace IdentityMessagingApplication.DtoLayer.UserDtos
 {
-    public class AppUser:IdentityUser<int>
+    public class UpdateUserDto
     {
         public int Id { get; set; }
         public string UserName { get; set; }
@@ -18,7 +18,5 @@ namespace IdentityMessagingApplication.EntityLayer.Concrete
         public string Email { get; set; }
         public string? ImageUrl { get; set; }
         public bool IsApproved { get; set; }
-        public List<Message> SenderMessage { get; set; }
-        public List<Message> ReceiverMessage { get; set; }
     }
 }

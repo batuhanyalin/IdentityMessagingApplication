@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[controller]")]
     public class MessageController : Controller
     {
         private readonly IMessageService _messageService;
@@ -23,21 +24,20 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         public async Task<IActionResult> InboxMessageList()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var value = _messageService.TGetInboxMessageList(user.Id);
+            TempData["UserId"] = user.Id;
+            var value = _messageService.TGetInboxMessageList(Convert.ToInt32(@TempData["UserId"]));
             return View(value);
         }
         [Route("SentMessageList")]
-        public async Task<IActionResult> SentMessageList()
+        public IActionResult SentMessageList()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var value = _messageService.TGetSentMessageList(user.Id);
+            var value = _messageService.TGetSentMessageList(Convert.ToInt32(@TempData["UserId"]));
             return View(value);
         }
         [Route("DraftMessageList")]
-        public async Task<IActionResult> DraftMessageList()
+        public IActionResult DraftMessageList()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var value = _messageService.TGetDraftMessageList(user.Id);
+            var value = _messageService.TGetDraftMessageList(Convert.ToInt32(@TempData["UserId"]));
             return View(value);
         }
         [Route("JunkMessageList")]
