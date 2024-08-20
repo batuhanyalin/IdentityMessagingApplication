@@ -58,7 +58,6 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
                 City = value.City,
                 Email = value.Email,
                 Id = id,
-                ImageUrl = value.ImageUrl,
                 Name = value.Name,
                 Phone = value.Phone,
                 Surname = value.Surname

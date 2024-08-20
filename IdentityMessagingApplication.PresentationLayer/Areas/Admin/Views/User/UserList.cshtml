@@ -38,6 +38,7 @@
                                     <th>Adı Soyadı</th>
                                     <th>Kullanıcı Adı</th>
                                     <th>Şehir</th>
+                                    <th>Meslek</th>
                                     <th>Telefon</th>
                                     <th>Gönderdiği Mesaj</th>
                                     <th>Aldığı Mesaj</th>
@@ -55,6 +56,7 @@
                                         <td>@item.Name @item.Surname</td>
                                         <td>@item.UserName</td>
                                         <td>@item.City</td>
+                                        <td>@item.Profession</td>
                                         <td>@item.Phone</td>
                                         <td>@item.SenderMessage.Count()</td>
                                         <td>@item.ReceiverMessage.Count()</td>
@@ -62,12 +64,12 @@
                                             <a href="/Admin/User/ChangeIsApprovedUser/@item.Id">
                                                 @{
                                                     if (item.IsApproved == true)
-                                                    {                                                  
-                                                        <i style="color:mediumseagreen;font-size:20px" class="fas fa-check-circle"></i>
+                                                    {                                                       
+                                                        <i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>
                                                     }
                                                     else
                                                     {
-                                                        <i style="color:palevioletred;font-size:20px" class="fas fa-check-circle"></i>
+                                                        <i style="color:palevioletred;font-size:20px" class="fas fa-check-square"></i>
                                                     }
                                                 }
                                             </a>
@@ -88,6 +90,7 @@
                                     <th>Adı Soyadı</th>
                                     <th>Kullanıcı Adı</th>
                                     <th>Şehir</th>
+                                    <th>Meslek</th>
                                     <th>Telefon</th>
                                     <th>Gönderdiği Mesaj</th>
                                     <th>Aldığı Mesaj</th>
