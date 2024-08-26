@@ -26,26 +26,9 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             _mapper = mapper;
             _appUserService = appUserService;
         }
-
-        [Route("UserList")]
-        public IActionResult UserList()
-        {
-            var values = _userManager.Users.ToList();
-            var users = _mapper.Map<List<ListUserDto>>(values);
-            return View(users);
-        }
-
-        [Route("JSUserList")]
-        public IActionResult JSUserList()
-        {
-            var values = _userManager.Users.ToList();
-            var user = _mapper.Map<List<ListUserDto>>(values);
-            var jsonUsers = JsonConvert.SerializeObject(user);
-            return Json(jsonUsers);
-        }
         [HttpPost]
         [Route("JSUpdateUser")]
-        public async Task<IActionResult> JSUpdateUser(UpdateUserDto updateUserDto,IFormFile Image)
+        public async Task<IActionResult> JSUpdateUser(UpdateUserDto updateUserDto, IFormFile Image)
         {
             // Güncellenmek istenen kullanıcının mevcut bilgilerini al
             var currentUser = await _userManager.FindByIdAsync(updateUserDto.Id.ToString());
@@ -63,22 +46,21 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
                 return Json(new { success = false, message = "Kullanıcı adı zaten sistemde kayıtlı." });
             }
 
-            if (Image!=null &&Image.Length>0)
+            if (Image != null && Image.Length > 0)
             {
                 var resource = Directory.GetCurrentDirectory();
                 var extension = Path.GetExtension(Image.FileName);
-                var imageName=Guid.NewGuid()+extension;
-                var saveLocation=Path.Combine(resource,"wwwroot/images/users/",imageName);
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = Path.Combine(resource, "wwwroot/images/users/", imageName);
                 using (var stream = new FileStream(saveLocation, FileMode.Create))
                 {
                     await Image.CopyToAsync(stream);
                 }
-                updateUserDto.ImageUrl=$"/images/users/{imageName}";
+                updateUserDto.ImageUrl = $"/images/users/{imageName}";
             }
-
             else if (updateUserDto.ImageUrl == null)
             {
-                updateUserDto.ImageUrl = currentUser.ImageUrl ?? "/images/no-image.jpg";
+                updateUserDto.ImageUrl = $"/images/no-image.jpg";
             }
 
             currentUser.UserName = updateUserDto.UserName;
@@ -101,6 +83,23 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             {
                 return Json(new { success = false, message = "Güncelleme sırasında bir hata oluştu." });
             }
+        }
+
+        [Route("UserList")]
+        public IActionResult UserList()
+        {
+            var values = _userManager.Users.ToList();
+            var users = _mapper.Map<List<ListUserDto>>(values);
+            return View(users);
+        }
+
+        [Route("JSUserList")]
+        public IActionResult JSUserList()
+        {
+            var values = _userManager.Users.ToList();
+            var user = _mapper.Map<List<ListUserDto>>(values);
+            var jsonUsers = JsonConvert.SerializeObject(user);
+            return Json(jsonUsers);
         }
 
         [Route("DeleteUser/{id:int}")]

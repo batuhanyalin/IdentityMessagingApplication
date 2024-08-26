@@ -124,23 +124,28 @@
     });
 
     $("#btnuserUpdate").click(function () {
-        let userUpdate = {
-            Name: $("#UpdateUserName").val(),
-            Id: $("#UpdateUserId").val(),
-            Surname: $("#UpdateUserSurname").val(),
-            About: $("#UpdateUserAbout").val(),
-            ImageUrl: $("#UpdateUserImage").val(),
-            UserName: $("#UpdateUserUsername").val(),
-            Phone: $("#UpdateUserPhone").val(),
-            Profession: $("#UpdateUserProfession").val(),
-            City: $("#UpdateUserCity").val(),
-            Email: $("#UpdateUserEmail").val()
-        };
+        var formData = new FormData();
+        formData.append("Id", $("#UpdateUserId").val());
+        formData.append("UserName", $("#UpdateUserUsername").val());
+        formData.append("Name", $("#UpdateUserName").val());
+        formData.append("Surname", $("#UpdateUserSurname").val());
+        formData.append("About", $("#UpdateUserAbout").val());
+        formData.append("Profession", $("#UpdateUserProfession").val());
+        formData.append("City", $("#UpdateUserCity").val());
+        formData.append("Phone", $("#UpdateUserPhone").val());
+        formData.append("Email", $("#UpdateUserEmail").val());
+
+        var imageFile = $("#Image")[0].files[0];
+        if (imageFile) {
+            formData.append("Image", imageFile);
+        }
 
         $.ajax({
             url: "/Admin/User/JSUpdateUser/",
-            data: userUpdate,
+            data: formData,
             type: "POST",
+            contentType: false,
+            processData: false,
             success: function (response) {
                 if (response.success) {
                     Swal.fire({

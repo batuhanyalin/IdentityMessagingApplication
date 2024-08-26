@@ -1,4 +1,5 @@
 ﻿using IdentityMessagingApplication.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,6 @@ namespace IdentityMessagingApplication.DtoLayer.UserDtos
         public string Phone { get; set; }
         public string Email { get; set; }
         public string? ImageUrl { get; set; }
+        public IFormFile Image { get; set; }
     }
 }
