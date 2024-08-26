@@ -9,5 +9,6 @@ namespace IdentityMessagingApplication.BusinessLayer.Abstract
 {
     public interface IAppUserService:IGenericService<AppUser>
     {
+        public AppUser TChangeIsApprovedUser(int id);
     }
 }

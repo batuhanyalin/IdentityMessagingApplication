@@ -8,7 +8,7 @@ namespace IdentityMessagingApplication.DtoLayer.LoginDtos
 {
     public class LoginDto
     {
-        public string userName { get; set; }
+        public string UserName { get; set; }
         public string password { get; set; }
     }
 }

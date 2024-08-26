@@ -17,23 +17,23 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
 
         public List<Message> GetInboxMessageList(int id)
         {
-            return context.Messages.Where(x => x.ReceiverId == id).ToList();
+            return context.Messages.Where(x => x.ReceiverId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
         }
         public List<Message> GetSentMessageList(int id)
         {
-            return context.Messages.Where(x => x.SenderId == id).ToList();
+            return context.Messages.Where(x => x.SenderId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
         }
         public List<Message> GetDraftMessageList(int id)
         {
-            return context.Messages.Where(x => x.IsDraft == true && x.SenderId == id).ToList();
+            return context.Messages.Where(x => x.IsDraft == true && x.SenderId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
         }
         public List<Message> GetJunkMessageList(int id)
         {
-            return context.Messages.Where(x => x.IsJunk == true && x.ReceiverId == id).ToList();
+            return context.Messages.Where(x => x.IsJunk == true && x.ReceiverId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
         }
         public List<Message> GetImportantMessageList(int id)
         {
-            return context.Messages.Where(x => x.IsImportant == true && x.ReceiverId == id).ToList();
+            return context.Messages.Where(x => x.IsImportant == true && x.ReceiverId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
         }
         public Message GetChangeIsReadMessageByMessageId(int id)
         {
@@ -76,6 +76,15 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
             }
             context.SaveChanges();
             return values;
+        }
+        public List<Message> GetMessageListBySenderId(int id)
+        {
+            return context.Messages.Where(x => x.SenderId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
+        }
+
+        public List<Message> GetMessageListNavBarByReceiverId(int id)
+        {
+            return context.Messages.Where(x => x.ReceiverId == id).Include(x => x.Sender).Include(x => x.Receiver).OrderByDescending(x => x.SendingTime).Take(3).ToList();
         }
     }
 }

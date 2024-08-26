@@ -23,83 +23,95 @@
     <div class="register-box">
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <a href="../../index2.html" class="h1"><b>BY</b> MessageApp™</a><small>v1.1</small>
+                <a class="h1"><b>BY</b> MessageApp™</a><small>v1.1</small>
             </div>
             <div class="card-body">
                 <p style="font-size:larger" class="login-box-msg">Üyelik Oluştur</p>
 
                 <form method="post">
+                    <span style="font-size:small" class="text-danger" asp-validation-for="Name"></span>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" asp-for="Name" placeholder="Ad">
+                        <input type="text" class="form-control" required="" asp-for="Name" placeholder="Ad">                     
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-pen-alt"></span>
                             </div>
                         </div>
                     </div>
+                    <span style="font-size:small" class="text-danger" asp-validation-for="Surname"></span>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" asp-for="Surname" placeholder="Soyad">
+                        <input type="text" class="form-control" asp-for="Surname" required="" placeholder="Soyad">                      
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fab fa-stripe-s"></span>
                             </div>
                         </div>
                     </div>
+                    <span style="font-size:small" class="text-danger" asp-validation-for="City"></span>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" asp-for="City" placeholder="Şehir">
+                        <input type="text" class="form-control" asp-for="City" required="" placeholder="Şehir">
+                       
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-city"></span>
                             </div>
                         </div>
                     </div>
+                    <span style="font-size:small" class="text-danger" asp-validation-for="Profession"></span>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" asp-for="Profession" placeholder="Meslek">
+                        <input type="text" class="form-control" asp-for="Profession" required="" placeholder="Meslek">                       
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user-md"></span>
                             </div>
                         </div>
                     </div>
+                    <span style="font-size:small" class="text-danger" asp-validation-for="Phone"></span>
+
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" asp-for="Phone" placeholder="Telefon">
+                        <input type="text" class="form-control" asp-for="Phone" required="" placeholder="Telefon">                    
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-phone"></span>
                             </div>
                         </div>
                     </div>
+                    <span style="font-size:small" class="text-danger" asp-validation-for="UserName"></span>
+
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" asp-for="UserName" placeholder="Kullanıcı Adı">
+                        <input type="text" class="form-control" asp-for="UserName" required="" placeholder="Kullanıcı Adı">                    
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
+                    <span style="font-size:small" class="text-danger" asp-validation-for="Email"></span>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" asp-for="Email" placeholder="E-posta">
-                        <div class="input-group-append">
+                        <input type="email" class="form-control" asp-for="Email" required="" placeholder="E-posta">
+                                              <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
+                    <span style="font-size:small" class="text-danger" asp-validation-for="Password"></span>
+
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" asp-for="Password" placeholder="Şifre">
+                        <input type="password" class="form-control" asp-for="Password" required="" placeholder="Şifre">                  
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" asp-for="About" />
+                    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                <input required="" type="checkbox" id="agreeTerms" name="terms" value="agree">
                                 <label for="agreeTerms">
-                                    I agree to the <a href="#">terms</a>
+                                  <a href="#">Kullanım koşullarını</a> okudum, anladım, kabul ediyorum.
                                 </label>
                             </div>
                         </div>

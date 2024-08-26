@@ -4,7 +4,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.ViewCompone
 {
     public class _ScriptsComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             return View();
         }

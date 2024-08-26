@@ -19,6 +19,5 @@ namespace IdentityMessagingApplication.DtoLayer.UserDtos
         public string Phone { get; set; }
         public string Email { get; set; }
         public string? ImageUrl { get; set; }
-        public bool IsApproved { get; set; }
     }
 }

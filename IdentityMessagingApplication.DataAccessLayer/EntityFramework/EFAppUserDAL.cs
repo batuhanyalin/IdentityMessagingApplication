@@ -1,6 +1,8 @@
 ﻿using IdentityMessagingApplication.DataAccessLayer.Abstract;
+using IdentityMessagingApplication.DataAccessLayer.Context;
 using IdentityMessagingApplication.DataAccessLayer.Repositories;
 using IdentityMessagingApplication.EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,22 @@ using System.Threading.Tasks;
 
 namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
 {
-    public class EFAppUserDAL:GenericRepository<AppUser>,IAppUserDAL
+    public class EFAppUserDAL : GenericRepository<AppUser>, IAppUserDAL
     {
+        ProjectContext context = new ProjectContext();
+        public AppUser ChangeIsApprovedUser(int id)
+        {
+            var values = context.Users.Find(id);
+            if (values.IsApproved == false)
+            {
+                values.IsApproved = true;
+            }
+            else
+            {
+                values.IsApproved = false;
+            }
+            context.SaveChanges();
+            return values;
+        }
     }
 }

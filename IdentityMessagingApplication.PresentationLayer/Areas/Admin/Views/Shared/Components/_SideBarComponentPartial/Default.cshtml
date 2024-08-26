@@ -1,7 +1,7 @@
 ﻿<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/Admin/Dashboard/Index" class="brand-link">
-        <img src="~/AdminLTE-3.1.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="~/images/batuhan-yalin-logo.png" alt="BY Message App Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">BY Message App v1.1</span>
     </a>
 
@@ -34,38 +34,58 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item ">
+                    <a href="/Admin/User/UserList" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>
+                            Kullanıcılar
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-envelope"></i>
                         <p>
-                            Mailbox
+                            Mesajlar
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                            <a href="/Admin/Message/InboxMessageList" class="nav-link">
+                                <i class="far fa-circle nav-icon text-success"></i>
+                                <p>Gelen Mesajlar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Message/SentMessageList" class="nav-link">
+                                <i class="far fa-circle nav-icon text-warning"></i>
+                                <p>Giden Mesajlar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Message/ImportantMessageList" class="nav-link">
+                                <i class="far fa-circle nav-icon text-info"></i>
+                                <p>Önemli Mesajlar</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Message/DraftMessageList" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Taslak</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Message/JunkMessageList" class="nav-link">
                                 <i class="far fa-circle nav-icon text-danger"></i>
-                                <p>Inbox</p>
+                                <p>Silinen Mesajlar</p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/mailbox/compose.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Compose</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/mailbox/read-mail.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Read</p>
-                            </a>
-                        </li>
+                        </li>              
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-user-cog"></i>
                         <p>
                             Profilim
                         </p>
@@ -73,15 +93,15 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
+                        <i class="nav-icon fas fa-cogs"></i>
                         <p>
                             Ayarlar
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
+                    <a href="/Login/LogOut" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
                             Oturumu Kapat
                         </p>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IdentityMessagingApplication.BusinessLayer.Abstract;
+using IdentityMessagingApplication.DtoLayer.MessageDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,33 +27,38 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             TempData["UserId"] = user.Id;
             var value = _messageService.TGetInboxMessageList(Convert.ToInt32(@TempData["UserId"]));
-            return View(value);
+            var values = _mapper.Map<List<InboxMessageListDto>>(value);
+            return View(values);
         }
         [Route("SentMessageList")]
         public IActionResult SentMessageList()
         {
             var value = _messageService.TGetSentMessageList(Convert.ToInt32(@TempData["UserId"]));
-            return View(value);
+            var values = _mapper.Map<List<SentMessageListDto>>(value);
+            return View(values);
         }
         [Route("DraftMessageList")]
         public IActionResult DraftMessageList()
         {
             var value = _messageService.TGetDraftMessageList(Convert.ToInt32(@TempData["UserId"]));
-            return View(value);
+            var values = _mapper.Map<List<DraftMessageListDto>>(value);
+            return View(values);
         }
         [Route("JunkMessageList")]
         public async Task<IActionResult> JunkMessageList()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var value = _messageService.TGetJunkMessageList(user.Id);
-            return View(value);
+            var values = _mapper.Map<List<JunkMessageListDto>>(value);
+            return View(values);
         }
         [Route("ImportantMessageList")]
         public async Task<IActionResult> ImportantMessageList()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var value = _messageService.TGetImportantMessageList(user.Id);
-            return View(value);
+            var values = _mapper.Map<List<ImportantMessageListDto>>(value);
+            return View(values);
         }
         public async Task<IActionResult> ChangeIsReadMessage(int id)
         {
@@ -68,6 +74,15 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         {
             var value = _messageService.TGetChangeIsJunkMessageByMessageId(id);
             return RedirectToAction("InboxMessageList");
+        }
+
+        [Route("GetMessageListBySenderId/{id:int}")]
+        [HttpGet]
+        public IActionResult GetMessageListBySenderId(int id)
+        {
+            var value = _messageService.TGetMessageListBySenderId(id);
+            var values=_mapper.Map<List<InboxMessageListDto>>(value);
+            return View(values);
         }
     }
 }

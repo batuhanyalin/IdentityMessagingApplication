@@ -1,6 +1,6 @@
 ﻿@model List<InboxMessageListDto>
 @{
-    ViewData["Title"] = "InboxMessageList";
+    ViewData["Title"] = "GetMessageListBySenderId";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
     int count = 0;
 }
@@ -145,9 +145,9 @@
                             </button>
                         </div>
                         <!-- /.btn-group -->
-                        <but+-ton type="button" class="btn btn-default btn-sm">
+                        <button type="button" class="btn btn-default btn-sm">
                             <i class="fas fa-sync-alt"></i>
-                        </but+-ton>
+                        </button>
                         <div class="float-right">
                             1-50/200
                             <div class="btn-group">
@@ -175,7 +175,7 @@
                                             </div>
                                         </td>
                                         <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
-                                        <td class="mailbox-name"><a href="/Admin/Message/GetMessageListBySenderId/@item.SenderId">@item.Sender.Name @item.Sender.Surname</a></td>
+                                        <td class="mailbox-name"><a href="/Admin/Message/GetMessageListBySenderId">@item.Sender.Name @item.Sender.Surname</a></td>
                                         <td class="mailbox-subject">
                                             <b>@item.Subject</b> -
                                             @{
@@ -220,9 +220,9 @@
                             </button>
                         </div>
                         <!-- /.btn-group -->
-                        <a type="text/html" href="/Admin/Message/InboxMessageList" class="btn btn-default btn-sm">
+                        <button type="button" class="btn btn-default btn-sm">
                             <i class="fas fa-sync-alt"></i>
-                        </a>
+                        </button>
                         <div class="float-right">
                             1-50/200
                             <div class="btn-group">
@@ -245,4 +245,5 @@
     </div>
     <!-- /.row -->
 </section>
+
 

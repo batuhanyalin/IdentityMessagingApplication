@@ -1,6 +1,7 @@
 using AutoMapper;
 using IdentityMessagingApplication.BusinessLayer.Abstract;
 using IdentityMessagingApplication.BusinessLayer.Concrete;
+using IdentityMessagingApplication.BusinessLayer.ValidationRules;
 using IdentityMessagingApplication.DataAccessLayer.Abstract;
 using IdentityMessagingApplication.DataAccessLayer.Context;
 using IdentityMessagingApplication.DataAccessLayer.EntityFramework;
@@ -18,7 +19,7 @@ builder.Services.AddScoped<IAppUserDAL, EFAppUserDAL>();
 builder.Services.AddScoped<IAppUserService,AppUserManager>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ProjectContext>();
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ProjectContext>().AddErrorDescriber<CustomIdentityValidator>();
 builder.Services.AddDbContext<ProjectContext>();
 var app = builder.Build();
 

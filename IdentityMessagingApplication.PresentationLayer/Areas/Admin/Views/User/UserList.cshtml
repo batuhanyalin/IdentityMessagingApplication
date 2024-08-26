@@ -22,6 +22,57 @@
     </div><!-- /.container-fluid -->
 </section>
 
+<div class="modal fade" id="UpdateUser" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="staticBackdropLabel">Kullanıcı Güncelle</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h3>Profil Resmi</h3>
+                <div class="row">
+                    <div class="col col-md-6">
+                        <img id="UpdateUserImage" src="" alt="Profil Resmi" style="width:100%; max-height:150px;" />
+                    </div>
+                    <div class="col col-md-6">
+                        <input id="UpdateUserImage" type="file" />
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col col-md-6">
+                        <input type="hidden" id="UpdateUserId" />
+                        <label for="UpdateUserName" class="mt-1">Adı</label>
+                        <input type="text" id="UpdateUserName" class="form-control mb-2" />
+                        <label for="UpdateUserSurname">Soyadı</label>
+                        <input type="text" id="UpdateUserSurname" class="form-control mb-2" />
+                        <label for="UpdateUserAbout">Hakkında</label>
+                        <input type="text" id="UpdateUserAbout" class="form-control mb-2" />
+                        <label for="UpdateUserProfession">Meslek</label>
+                        <input type="text" id="UpdateUserProfession" class="form-control mb-2" />
+                    </div>
+                    <div class="col col-md-6">
+                        <label for="UpdateUserUsername">Kullanıcı Adı</label>
+                        <input type="text" id="UpdateUserUsername" class="form-control mb-2" />
+                        <label for="UpdateUserEmail">E-posta</label>
+                        <input type="text" id="UpdateUserEmail" class="form-control mb-2" />
+                        <label for="UpdateUserPhone">Telefon</label>
+                        <input type="text" id="UpdateUserPhone" class="form-control mb-2" />
+                        <label for="UpdateUserCity">Şehir</label>
+                        <input type="text" id="UpdateUserCity" class="form-control mb-2" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnUpdateClose" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+                <button type="button" id="btnuserUpdate" class="btn btn-primary">Güncelle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
@@ -29,8 +80,8 @@
             <div class="col-12">
                 <div class="card">
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                    <div id="userList" class="card-body">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -50,9 +101,11 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
+                                    count++;
                                     <tr>
+                                        <input type="hidden" name="@item.Id" id="@item.Id" value="@item.Id" />
                                         <td>@count</td>
-                                        <td><img src="@item.ImageUrl" style="height:70px;width:50px" /></td>
+                                        <td><img src="@item.ImageUrl" style="height:70px;width:60px" /></td>
                                         <td>@item.Name @item.Surname</td>
                                         <td>@item.UserName</td>
                                         <td>@item.City</td>
@@ -64,21 +117,21 @@
                                             <a href="/Admin/User/ChangeIsApprovedUser/@item.Id">
                                                 @{
                                                     if (item.IsApproved == true)
-                                                    {                                                       
+                                                    {
                                                         <i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>
                                                     }
                                                     else
                                                     {
-                                                        <i style="color:palevioletred;font-size:20px" class="fas fa-check-square"></i>
+                                                        <i style="color:palevioletred;font-size:20px" class="fas fa-times-circle"></i>
                                                     }
                                                 }
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="/Admin/User/DeleteUser/@item.Id" class="btn btn-warning">Sil</a>
+                                            <button class="btn btn-danger btn-delete" data-id=@item.Id><i class="fas fa-trash-alt"></i></button>
                                         </td>
                                         <td>
-                                            <a href="/Admin/User/UpdateUser/@item.Id" class="btn btn-success">Güncelle</a>
+                                            <button class="btn btn-warning btn-update" data-id="@item.Id" data-toggle="modal" data-target="#UpdateUser"><i class="fas fa-sync"></i></button>
                                         </td>
                                     </tr>
                                 }
@@ -111,4 +164,3 @@
     </div>
     <!-- /.container-fluid -->
 </section>
-

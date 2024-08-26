@@ -12,7 +12,7 @@ namespace IdentityMessagingApplication.EntityLayer.Concrete
         public string Name { get; set; }
         public string Surname { get; set; }
         public string? About { get; set; }
-        public string ImageUrl {  get; set; }
+        public string? ImageUrl {  get; set; }
         public string Phone { get; set; }
         public string Profession { get; set; }
         public string City { get; set; }

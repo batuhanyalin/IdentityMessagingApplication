@@ -17,5 +17,7 @@ namespace IdentityMessagingApplication.DataAccessLayer.Abstract
         public Message GetChangeIsReadMessageByMessageId(int id);
         public Message GetChangeIsImportantMessageByMessageId(int id);
         public Message GetChangeIsJunkMessageByMessageId(int id);
+        public List<Message> GetMessageListBySenderId(int id);
+        public List<Message> GetMessageListNavBarByReceiverId(int id);
     }
 }
