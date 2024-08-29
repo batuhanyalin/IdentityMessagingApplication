@@ -26,23 +26,39 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         public async Task<IActionResult> InboxMessageList()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            TempData["UserId"] = user.Id;
-            var value = _messageService.TGetInboxMessageList(Convert.ToInt32(@TempData["UserId"]));
+            var value = _messageService.TGetInboxMessageList(user.Id);
             var values = _mapper.Map<List<InboxMessageListDto>>(value);
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
             return View(values);
         }
         [Route("SentMessageList")]
-        public IActionResult SentMessageList()
+        public async Task<IActionResult> SentMessageList()
         {
-            var value = _messageService.TGetSentMessageList(Convert.ToInt32(@TempData["UserId"]));
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var value = _messageService.TGetSentMessageList(user.Id);
             var values = _mapper.Map<List<SentMessageListDto>>(value);
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
             return View(values);
         }
         [Route("DraftMessageList")]
-        public IActionResult DraftMessageList()
+        public async Task<IActionResult> DraftMessageList()
         {
-            var value = _messageService.TGetDraftMessageList(Convert.ToInt32(@TempData["UserId"]));
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var value = _messageService.TGetDraftMessageList(user.Id);
             var values = _mapper.Map<List<DraftMessageListDto>>(value);
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
             return View(values);
         }
         [Route("JunkMessageList")]
@@ -51,6 +67,11 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var value = _messageService.TGetJunkMessageList(user.Id);
             var values = _mapper.Map<List<JunkMessageListDto>>(value);
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
             return View(values);
         }
         [Route("ImportantMessageList")]
@@ -59,6 +80,11 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var value = _messageService.TGetImportantMessageList(user.Id);
             var values = _mapper.Map<List<ImportantMessageListDto>>(value);
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
             return View(values);
         }
         public async Task<IActionResult> ChangeIsReadMessage(int id)

@@ -39,32 +39,33 @@
                 <div class="card-body p-0">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item active">
-                            <a href="#" class="nav-link">
+                            <a href="/Admin/Message/InboxMessageList" class="nav-link">
                                 <i class="fas fa-inbox"></i> Gelen
-                                <span class="badge bg-primary float-right">@ViewBag.inboxCount</span>
+                                <span class="badge bg-primary float-right">@ViewBag.inboxMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/Admin/Message/SentMessageList" class="nav-link">
                                 <i class="far fa-envelope"></i> Gönderilen
-                                <span class="badge bg-success float-right">x</span>
+                                <span class="badge bg-success float-right">@ViewBag.sentMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/Admin/Message/DraftMessageList" class="nav-link">
                                 <i class="far fa-file-alt"></i> Taslaklar
+                                <span class="badge bg-info float-right">@ViewBag.draftMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/Admin/Message/ImportantMessageList" class="nav-link">
                                 <i class="fas fa-star"></i> Önemli
-                                <span class="badge bg-warning float-right">x</span>
+                                <span class="badge bg-warning float-right">@ViewBag.importantMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/Admin/Message/JunkMessageList" class="nav-link">
                                 <i class="far fa-trash-alt"></i> Silinenler
-                                <span class="badge bg-danger float-right">5</span>
+                                <span class="badge bg-danger float-right">@ViewBag.junkMessageCount</span>
                             </a>
                         </li>
                     </ul>
@@ -170,7 +171,7 @@
                                                 <label for="check1"></label>
                                             </div>
                                         </td>
-                                        <td class="mailbox-name"><a href="/Admin/Message/GetMessageListBySenderId/@item.SenderId">@item.Sender.Name @item.Sender.Surname</a></td>
+                                        <td class="mailbox-name"><a href="/Admin/Message/GetMessageListBySenderId/@item.ReceiverId">@item.Receiver.Name @item.Receiver.Surname</a></td>
                                         <td class="mailbox-subject">
                                             <b>@item.Subject</b> -
                                             @{
@@ -197,39 +198,7 @@
                     <!-- /.mail-box-messages -->
                 </div>
                 <!-- /.card-body -->
-                <div class="card-footer p-0">
-                    <div class="mailbox-controls">
-                        <!-- Check all button -->
-                        <button type="button" class="btn btn-default btn-sm checkbox-toggle">
-                            <i class="far fa-square"></i>
-                        </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm">
-                                <i class="far fa-trash-alt text-danger"></i>
-                            </button>
-                            <button type="button" class="btn btn-default btn-sm">
-                                <i class="fas fa-star text-warning"></i>
-                            </button>
-                        </div>
-                        <!-- /.btn-group -->
-                        <a type="text/html" href="/Admin/Message/InboxMessageList" class="btn btn-default btn-sm">
-                            <i class="fas fa-sync-alt text-success"></i>
-                        </a>
-                        <div class="float-right">
-                            1-50/200
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-                            <!-- /.btn-group -->
-                        </div>
-                        <!-- /.float-right -->
-                    </div>
-                </div>
+       
             </div>
             <!-- /.card -->
         </div>
