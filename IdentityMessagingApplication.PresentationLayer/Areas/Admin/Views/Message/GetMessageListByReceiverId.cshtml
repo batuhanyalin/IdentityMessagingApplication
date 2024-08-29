@@ -1,6 +1,6 @@
-﻿@model List<JunkMessageListDto>
+﻿@model List<InboxMessageListDto>
 @{
-    ViewData["Title"] = "JunkMessageList";
+    ViewData["Title"] = "GetMessageListByReceiverId";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
 }
 
@@ -72,15 +72,14 @@
                 </div>
                 <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-            <!-- /.card -->
         </div>
         <!-- /.col -->
         <div class="col-md-9">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Silinen Mesajlar</h3>
-
+                    <h3 class="card-title">
+                        @ViewBag.ReceiverName Kullanıcısına Gönderilen Mesajlar
+                    </h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <input type="text" class="form-control" placeholder="Search Mail">
@@ -109,7 +108,7 @@
                             </button>
                         </div>
                         <!-- /.btn-group -->
-                        <button type="button" id=btn-MessageRefresh class="btn btn-default btn-sm">
+                        <button type="button" id=btn-MessageRefreshInbox class="btn btn-default btn-sm">
                             <i class="fas fa-sync-alt text-success"></i>
                         </button>
                         <div class="float-right">
@@ -134,11 +133,10 @@
                                     <tr>
                                         <td>
                                             <div class="icheck-primary">
-                                                <input type="checkbox" value="@item." id="check1">
+                                                <input type="checkbox" value="@item.MessageId" id="check1">
                                                 <label for="check1"></label>
                                             </div>
                                         </td>
-                                        <td class="mailbox-name"><a href="/Admin/Message/GetMessageListBySenderId/@item.SenderId">@item.Sender.Name @item.Sender.Surname</a></td>
                                         <td class="mailbox-subject">
                                             <b>@item.Subject</b> -
                                             @{
@@ -156,6 +154,7 @@
                                         </td>
                                         <td class="mailbox-attachment"></td>
                                         <td class="mailbox-date">@item.SendingTime.ToString("dd.MM.yyy.HH:ss")</td>
+                                        <td><a href="/Admin/Message/ReadMessage/@item.MessageId">Mesajı Oku <i class="fas fa-envelope-open text-success"></i></a></td>
                                     </tr>
                                 }
                             </tbody>
@@ -165,7 +164,6 @@
                     <!-- /.mail-box-messages -->
                 </div>
                 <!-- /.card-body -->
-
             </div>
             <!-- /.card -->
         </div>

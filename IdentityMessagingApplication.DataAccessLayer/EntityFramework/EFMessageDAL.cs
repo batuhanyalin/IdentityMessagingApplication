@@ -81,6 +81,10 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
         {
             return context.Messages.Where(x => x.SenderId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
         }
+        public List<Message> GetMessageListByReceiverId(int id)
+        {
+            return context.Messages.Where(x => x.ReceiverId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
+        }
 
         public List<Message> GetMessageListNavBarByReceiverId(int id)
         {

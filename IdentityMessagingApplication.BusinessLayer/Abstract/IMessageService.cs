@@ -19,5 +19,6 @@ namespace IdentityMessagingApplication.BusinessLayer.Abstract
         public Message TGetChangeIsJunkMessageByMessageId(int id);
         public List<Message> TGetMessageListBySenderId(int id);
         public List<Message> TGetMessageListNavBarByReceiverId(int id);
+        public List<Message> TGetMessageListByReceiverId(int id);
     }
 }

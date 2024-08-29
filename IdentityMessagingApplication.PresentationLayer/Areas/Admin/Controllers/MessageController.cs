@@ -105,10 +105,34 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 
         [Route("GetMessageListBySenderId/{id:int}")]
         [HttpGet]
-        public IActionResult GetMessageListBySenderId(int id)
+        public async Task<IActionResult> GetMessageListBySenderId(int id)
         {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var value = _messageService.TGetMessageListBySenderId(id);
+            var sender = await _userManager.FindByIdAsync(id.ToString());
+            ViewBag.SenderName = sender.Name + " " + sender.Surname;
             var values=_mapper.Map<List<InboxMessageListDto>>(value);
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
+            return View(values);
+        }
+        [Route("GetMessageListByReceiverId/{id:int}")]
+        [HttpGet]
+        public async Task<IActionResult> GetMessageListByReceiverId(int id)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var value = _messageService.TGetMessageListByReceiverId(id);
+            var receiver = await _userManager.FindByIdAsync(id.ToString());
+            ViewBag.ReceiverName = receiver.Name + " " + receiver.Surname;
+            var values = _mapper.Map<List<InboxMessageListDto>>(value);
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
             return View(values);
         }
     }
