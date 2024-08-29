@@ -19,6 +19,8 @@ namespace IdentityMessagingApplication.DtoLayer.UserDtos
         public string City { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
+        public List<Message> SenderMessage { get; set; }
+        public List<Message> ReceiverMessage { get; set; }
         public string? ImageUrl { get; set; }
         public IFormFile Image { get; set; }
     }

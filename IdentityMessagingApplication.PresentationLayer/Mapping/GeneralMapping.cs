@@ -22,6 +22,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Mapping
             CreateMap<AppUser, UpdateUserDto>().ReverseMap();
             CreateMap<AppUser, LoginDto>().ReverseMap();
             CreateMap<AppUser, RegisterDto>().ReverseMap();
+            CreateMap<AppUser,MyProfileUpdateDto>().ReverseMap();
         }
     }
 }

@@ -21,6 +21,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             _mapper = mapper;
             _userManager = userManager;
         }
+
         [Route("InboxMessageList")]
         public async Task<IActionResult> InboxMessageList()
         {

@@ -1,6 +1,6 @@
 ﻿    <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
-@* <script src="~/AdminLTE-3.1.0/plugins/jquery/jquery.min.js"></script> *@
+<script src="~/AdminLTE-3.1.0/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="~/AdminLTE-3.1.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
@@ -47,6 +47,48 @@
         });
     });
 
+    function loadMessageList() {
+        $.ajax({
+            type: "get",
+            url: "/Admin/Message/JSMessageList",
+            success: function (data) {
+                // Veriyi parse edip HTML'e yerleştirin
+                let users = JSON.parse(data);
+                let tableBody = $("#messageList tbody");
+                tableBody.empty();
+                let count = 0;
+                users.forEach(function (item) {
+                    count++;
+                    let row = `<tr>
+                                                     <td>${count}</td>
+                                                      <input type="hidden" name="${item.Id}" id="${item.Id}" value="${item.Id}" />
+                                                     <td><img src="${item.ImageUrl}" style="height:70px;width:60px" /></td>
+                                                     <td>${item.Name} ${item.Surname}</td>
+                                                     <td>${item.UserName}</td>
+                                                     <td>${item.City}</td>
+                                                    <td>${item.Profession}</td>
+                                                    <td>${item.Phone}</td>
+                                                    <td>${item.SenderMessage.length}</td>
+                                                    <td>${item.ReceiverMessage.length}</td>
+                                                      <td>
+                                                     <a href="/Admin/User/ChangeIsApprovedUser/${item.Id}">
+                                                      ${item.IsApproved ? '<i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>' : '<i style="color:palevioletred;font-size:20px" class="fas fa-times-circle"></i>'}
+                                                      </a>
+                                                     </td>
+                                                      <td>
+                                                     <button class="btn btn-danger btn-delete" data-id="${item.Id}"><i class="fas fa-trash-alt"></i></button>
+                                                      </td>
+                                                     <td>
+                                                           <button class="btn btn-warning btn-update" data-id="${item.Id}" data-toggle="modal" data-target="#UpdateUser"><i class="fas fa-sync"></i></button>
+                                                     </td>
+                                                     </tr>`;
+                    tableBody.append(row);
+                });
+            }
+        });
+    }
+
+
     function loadUserList() {
         $.ajax({
             type: "get",
@@ -60,28 +102,28 @@
                 users.forEach(function (item) {
                     count++;
                     let row = `<tr>
-                             <td>${count}</td>
-                              <input type="hidden" name="${item.Id}" id="${item.Id}" value="${item.Id}" />
-                             <td><img src="${item.ImageUrl}" style="height:70px;width:60px" /></td>
-                             <td>${item.Name} ${item.Surname}</td>
-                             <td>${item.UserName}</td>
-                             <td>${item.City}</td>
-                            <td>${item.Profession}</td>
-                            <td>${item.Phone}</td>
-                            <td>${item.SenderMessage.length}</td>
-                            <td>${item.ReceiverMessage.length}</td>
-                              <td>
-                             <a href="/Admin/User/ChangeIsApprovedUser/${item.Id}">
-                              ${item.IsApproved ? '<i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>' : '<i style="color:palevioletred;font-size:20px" class="fas fa-times-circle"></i>'}
-                              </a>
-                             </td>
-                              <td>
-                             <button class="btn btn-danger btn-delete" data-id="${item.Id}"><i class="fas fa-trash-alt"></i></button>
-                              </td>
-                             <td>
-                                   <button class="btn btn-warning btn-update" data-id="${item.Id}" data-toggle="modal" data-target="#UpdateUser"><i class="fas fa-sync"></i></button>
-                             </td>
-                             </tr>`;
+                                                 <td>${count}</td>
+                                                  <input type="hidden" name="${item.Id}" id="${item.Id}" value="${item.Id}" />
+                                                 <td><img src="${item.ImageUrl}" style="height:70px;width:60px" /></td>
+                                                 <td>${item.Name} ${item.Surname}</td>
+                                                 <td>${item.UserName}</td>
+                                                 <td>${item.City}</td>
+                                                <td>${item.Profession}</td>
+                                                <td>${item.Phone}</td>
+                                                <td>${item.SenderMessage.length}</td>
+                                                <td>${item.ReceiverMessage.length}</td>
+                                                  <td>
+                                                 <a href="/Admin/User/ChangeIsApprovedUser/${item.Id}">
+                                                  ${item.IsApproved ? '<i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>' : '<i style="color:palevioletred;font-size:20px" class="fas fa-times-circle"></i>'}
+                                                  </a>
+                                                 </td>
+                                                  <td>
+                                                 <button class="btn btn-danger btn-delete" data-id="${item.Id}"><i class="fas fa-trash-alt"></i></button>
+                                                  </td>
+                                                 <td>
+                                                       <button class="btn btn-warning btn-update" data-id="${item.Id}" data-toggle="modal" data-target="#UpdateUser"><i class="fas fa-sync"></i></button>
+                                                 </td>
+                                                 </tr>`;
                     tableBody.append(row);
                 });
             }
@@ -122,6 +164,84 @@
             }
         });
     });
+
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            event.preventDefault(); // Formun otomatik olarak gönderilmesini engeller
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/User/MyProfile/", // Controller'da belirtilen Route
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response2) {
+                    if (response2.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Başarılı!',
+                            text: response2.message,
+                        }).then(function () {
+                            location.reload(); // Sayfayı yenile
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Hata!',
+                            text: response2.message,
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Hata!',
+                        text: 'Bir hata oluştu. Lütfen tekrar deneyin.',
+                    });
+                }
+            });
+        });
+    });
+
+    $("#btnUpdatePassword").click(function () {
+        let userPasswords = {
+            OldPassword: $("#oldPasswordText").val(),
+            NewPassword: $("#newPasswordText").val(),
+            ConfirmPassword: $("#confirmPasswordText").val()
+        };
+        $.ajax({
+            url: "/Admin/User/MyProfileChangePassword/",
+            data: userPasswords,
+            dataType: "json",
+            type: "POST",
+            success: function (funkUpdatePassword) {
+                if (funkUpdatePassword.success) {
+                    Swal.fire({
+                        title: "Güncelleme İşlemi Başarılı!",
+                        text: "Parola başarıyla güncellendi.",
+                        icon: "success"
+                    });
+                    $("#btnUpdatePasswordClose").click();
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkUpdatePassword.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
 
     $("#btnuserUpdate").click(function () {
         var formData = new FormData();

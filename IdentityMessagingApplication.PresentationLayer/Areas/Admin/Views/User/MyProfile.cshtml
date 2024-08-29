@@ -1,0 +1,170 @@
+﻿@model MyProfileUpdateDto
+@{
+    ViewData["Title"] = "MyProfile";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+<div class="modal fade" id="PasswordChangePanel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Parola Güncelleme Paneli</h2>
+                <button style="color:transparent" type="button" class="btn-close" data-dismiss="modal"><i style="color:darkred" class="fas fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <input id="oldPasswordText" type="text" required="" placeholder="Güncel parolanızı girin." />
+                        <span style="font-size:small" class="text-danger" asp-validation-for="OldPassword"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col col-md-6">
+                        <input id="newPasswordText" type="password" required="" placeholder="Yeni parolanızı girin." />
+                        <span style="font-size:small" class="text-danger" asp-validation-for="NewPassword"></span>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col col-md-6">
+                        <input id="confirmPasswordText" type="password" required="" placeholder="Yeni parolanızı tekrar girin." />
+                        <span style="font-size:small" class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnUpdatePasswordClose" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+                <button class="btn btn-success" id="btnUpdatePassword">Parolayı Güncelle</button>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <div class="text-center">
+                            <img class="profile-user-img img-fluid img-circle"
+                                 src="@Model.ImageUrl"
+                                 alt="User profile picture">
+                        </div>
+                        <h3 class="profile-username text-center">@Model.Name @Model.Surname</h3>
+                        <p class="text-muted text-center">@Model.Profession</p>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>Gönderdiği Mesaj Sayısı</b> <a class="float-right">@Model.SenderMessage.Count()</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Aldığı Mesaj Sayısı</b> <a class="float-right">@Model.ReceiverMessage.Count()</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Friends</b> <a class="float-right">13,287</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <div class="row">
+                            <div class="col col-md-2">
+                                <h4>Profilim</h4>
+                            </div>
+                            <div class="col col-md-7" style="float:left">
+                                <button id="btn-passwordChangePanelButton" data-toggle="modal" data-target="#PasswordChangePanel" class="btn btn-primary">Parola Değiştir</button>
+                            </div>
+                        </div>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="active tab-pane" id="information-panel">
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Ad</label>
+                                        <input type="hidden" asp-for=Id />
+                                        <div class="col-sm-10">
+                                            <input type="text" asp-for=Name class="form-control" id="userName">
+                                            <span style="font-size:small" class="text-danger" asp-validation-for="Name"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail" class="col-sm-2 col-form-label">Soyad</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" asp-for=Surname class="form-control" id="userSurname">
+                                            <span style="font-size:small" class="text-danger" asp-validation-for="Surname"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Meslek</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" asp-for=Profession class="form-control" id="userProfession">
+                                            <span style="font-size:small" class="text-danger" asp-validation-for="Profession"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputExperience" class="col-sm-2 col-form-label">Hakkında</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" asp-for=About id="userAbout"></textarea>
+                                            <span style="font-size:small" class="text-danger" asp-validation-for="About"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Şehir</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" asp-for=City class="form-control" id="userCity">
+                                            <span style="font-size:small" class="text-danger" asp-validation-for="City"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Telefon</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" asp-for=Phone class="form-control" id="userCity">
+                                            <span style="font-size:small" class="text-danger" asp-validation-for="Phone"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail" class="col-sm-2 col-form-label">E-posta</label>
+                                        <div class="col-sm-10">
+                                            <input type="email" asp-for=Email class="form-control" id="inputEmail">
+                                            <span style="font-size:small" class="text-danger" asp-validation-for="Email"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Kullanıcı Adı</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" asp-for=UserName class="form-control" id="userCity" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputName" class="col-sm-2 col-form-label">Profil Fotoğrafı Değiştir</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" asp-for="Image" />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-success" type="submit">Bilgileri Güncelle</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- /.tab-pane -->
+                            <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
