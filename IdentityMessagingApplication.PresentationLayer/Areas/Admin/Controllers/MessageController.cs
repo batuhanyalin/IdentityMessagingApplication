@@ -35,6 +35,55 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
             return View(values);
         }
+
+        [HttpPost]
+        [Route("MakeMessagesImportant")]
+        public IActionResult MakeMessagesImportant([FromBody] List<int> messageIds)
+        {
+            if (messageIds == null || !messageIds.Any())
+            {
+                return Json(new { success = false, message = "Geçersiz mesaj ID'leri" });
+            }
+
+            foreach (var messageId in messageIds)
+            {
+                var message = _messageService.TGetById(messageId);
+                if (message != null)
+                {
+                    message.IsImportant = true;
+                    message.IsJunk = false;
+                    message.IsDraft = false;
+                    _messageService.TUpdate(message);
+                }
+            }
+
+            return Json(new { success = true, message = "Mesajlar önemli olarak işaretlendi." });
+        }
+
+        [HttpPost]
+        [Route("MakeMessagesJunk")]
+        public IActionResult MakeMessagesJunk([FromBody] List<int> messageIds)
+        {
+            if (messageIds == null || !messageIds.Any())
+            {
+                return Json(new { success = false, message = "Geçersiz mesaj ID'leri" });
+            }
+
+            foreach (var messageId in messageIds)
+            {
+                var message = _messageService.TGetById(messageId);
+                if (message != null)
+                {
+                    message.IsImportant = false;
+                    message.IsDraft = false;
+                    message.IsJunk = true;
+                    _messageService.TUpdate(message);
+                }
+            }
+
+            return Json(new { success = true, message = "Mesajlar çöp kutusuna taşındı." });
+        }
+
         [Route("SentMessageList")]
         public async Task<IActionResult> SentMessageList()
         {
@@ -107,9 +156,9 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMessageListBySenderId(int id)
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var value = _messageService.TGetMessageListBySenderId(id);
             var sender = await _userManager.FindByIdAsync(id.ToString());
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var value = _messageService.TGetMessageListBySenderId(id,user.Id);         
             ViewBag.SenderName = sender.Name + " " + sender.Surname;
             var values=_mapper.Map<List<InboxMessageListDto>>(value);
             ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
@@ -123,9 +172,9 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMessageListByReceiverId(int id)
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var value = _messageService.TGetMessageListByReceiverId(id);
             var receiver = await _userManager.FindByIdAsync(id.ToString());
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var value = _messageService.TGetMessageListByReceiverId(id,user.Id);         
             ViewBag.ReceiverName = receiver.Name + " " + receiver.Surname;
             var values = _mapper.Map<List<InboxMessageListDto>>(value);
             ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();

@@ -46,7 +46,104 @@
             }
         });
     });
+    $('#btn-MakeJunk').click(function () {
+        var messageIds = [];
+        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
+            messageIds.push($(this).val());
+        });
 
+        // Konsola yazdırarak kontrol edin
+        console.log('Selected messageIds:', messageIds);
+
+        if (messageIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Uyarı',
+                text: 'Lütfen en az bir mesaj seçin!',
+                confirmButtonText: 'Tamam'
+            });
+        } else {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Seçili mesajlar gereksiz olarak işaretlenecek!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, işaretle!',
+                cancelButtonText: 'Hayır, vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("MakeMessagesJunk", "Message", new { Area = "Admin" })',
+                        contentType: "application/json",
+                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
+                        success: function (response3) {
+                            if (response3.success) {
+                                Swal.fire('Başarılı!', response3.message, 'success');
+                                location.reload(); // Sayfayı yenile
+                            } else {
+                                Swal.fire('Hata!', response3.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+    $('#btn-MakeImportant').click(function () {
+        var messageIds = [];
+        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
+            messageIds.push($(this).val());
+        });
+
+        // Konsola yazdırarak kontrol edin
+        console.log('Selected messageIds:', messageIds);
+
+        if (messageIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Uyarı',
+                text: 'Lütfen en az bir mesaj seçin!',
+                confirmButtonText: 'Tamam'
+            });
+        } else {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Seçili mesajlar önemli olarak işaretlenecek!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, işaretle!',
+                cancelButtonText: 'Hayır, vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("MakeMessagesImportant", "Message", new { Area = "Admin" })',
+                        contentType: "application/json",
+                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
+                        success: function (response3) {
+                            if (response3.success) {
+                                Swal.fire('Başarılı!', response3.message, 'success');
+                                location.reload(); // Sayfayı yenile
+                            } else {
+                                Swal.fire('Hata!', response3.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    });
     function loadMessageList() {
         $.ajax({
             type: "get",
