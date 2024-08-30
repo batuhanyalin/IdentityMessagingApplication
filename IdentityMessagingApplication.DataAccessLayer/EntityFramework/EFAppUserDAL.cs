@@ -2,6 +2,7 @@
 using IdentityMessagingApplication.DataAccessLayer.Context;
 using IdentityMessagingApplication.DataAccessLayer.Repositories;
 using IdentityMessagingApplication.EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,11 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
                 values.IsApproved = false;
             }
             context.SaveChanges();
+            return values;
+        }
+        public List<AppUser> GetUsersAllWithMessage()
+        {
+            var values= context.Users.Include(x=>x.SenderMessage).Include(x=>x.ReceiverMessage).ToList();
             return values;
         }
     }

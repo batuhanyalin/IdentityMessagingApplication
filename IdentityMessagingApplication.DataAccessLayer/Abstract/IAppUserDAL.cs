@@ -10,5 +10,6 @@ namespace IdentityMessagingApplication.DataAccessLayer.Abstract
     public interface IAppUserDAL:IGenericDAL<AppUser>
     {
         public AppUser ChangeIsApprovedUser(int id);
+        public List<AppUser> GetUsersAllWithMessage();
     }
 }

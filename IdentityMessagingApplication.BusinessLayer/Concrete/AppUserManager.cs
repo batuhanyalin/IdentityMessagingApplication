@@ -40,6 +40,11 @@ namespace IdentityMessagingApplication.BusinessLayer.Concrete
             return _appUserDAL.GetListAll();
         }
 
+        public List<AppUser> TGetUsersAllWithMessage()
+        {
+            return _appUserDAL.GetUsersAllWithMessage();
+        }
+
         public void TInsert(AppUser entity)
         {
             _appUserDAL.Insert(entity);

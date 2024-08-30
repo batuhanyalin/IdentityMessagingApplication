@@ -91,7 +91,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [Route("UserList")]
         public IActionResult UserList()
         {
-            var values = _userManager.Users.ToList();
+            var values = _appUserService.TGetUsersAllWithMessage();
             var users = _mapper.Map<List<ListUserDto>>(values);
             return View(users);
         }

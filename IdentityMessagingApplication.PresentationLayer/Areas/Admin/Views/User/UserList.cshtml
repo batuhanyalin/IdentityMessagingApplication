@@ -22,12 +22,47 @@
     </div><!-- /.container-fluid -->
 </section>
 
+<div class="modal fade" id="userMessageDetailPanel" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div style="background-color:cadetblue;color:white" class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title">Güncel Mesaj Sayıları</h1>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <label for="UpdateUserName" class="mt-1"><i class="fas fa-inbox text-warning"></i> Gelen Kutusu</label>
+                        <input type="number" readonly="" id="userDetailInfoInbox" class="form-control mb-2" />
+                        <hr />
+                        <label for="UpdateUserName" class="mt-1"><i class="far fa-envelope text-warning"></i> Giden Kutusu</label>
+                        <input type="number" readonly="" id="userDetailInfoSent" class="form-control mb-2" />
+                        <hr />
+                        <label for="UpdateUserName" class="mt-1"><i class="far fa-file-alt text-warning"></i> Taslak Kutusu</label>
+                        <input type="number" readonly="" id="userDetailInfoDraft" class="form-control mb-2" />
+                    </div>
+                    <div class="col col-md-6">
+                        <label for="UpdateUserName" class="mt-1"><i class="fas fa-star text-warning"></i> Önemliler Kutusu</label>
+                        <input type="number" readonly="" id="userDetailInfoImportant" class="form-control mb-2" />
+                        <hr />
+                        <label for="UpdateUserName" class="mt-1"><i class="far fa-trash-alt text-warning"></i> Silinenler Kutusu</label>
+                        <input type="number" readonly="" id="userDetailInfoJunk" class="form-control mb-2" />
+                        <hr />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="font-size:medium" id="btnUserDetailPanelClose" class="badge bg-danger" data-dismiss="modal">X</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="UpdateUser" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title" id="staticBackdropLabel">Kullanıcı Güncelle</h1>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
             </div>
             <div class="modal-body">
                 <h3>Profil Resmi</h3>
@@ -94,8 +129,10 @@
                                     <th>Gönderdiği Mesaj</th>
                                     <th>Aldığı Mesaj</th>
                                     <th>Onay Durumu</th>
+                                    <th>Detay</th>
                                     <th>Sil</th>
                                     <th>Güncelle</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,6 +165,9 @@
                                             </a>
                                         </td>
                                         <td>
+                                            <button class="btn btn-info btn-userMessageDetail" data-id="@item.Id" data-toggle="modal" data-target="#userMessageDetailPanel"><i class="fas fa-info"></i></button>
+                                        </td>
+                                        <td>
                                             <button class="btn btn-danger btn-delete" data-id=@item.Id><i class="fas fa-trash-alt"></i></button>
                                         </td>
                                         <td>
@@ -148,6 +188,7 @@
                                     <th>Gönderdiği Mesaj</th>
                                     <th>Aldığı Mesaj</th>
                                     <th>Onay Durumu</th>
+                                    <th>Detay</th>
                                     <th>Sil</th>
                                     <th>Güncelle</th>
                                 </tr>

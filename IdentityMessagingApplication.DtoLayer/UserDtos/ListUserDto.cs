@@ -20,6 +20,7 @@ namespace IdentityMessagingApplication.DtoLayer.UserDtos
         public string Email { get; set; }
         public string? ImageUrl { get; set; }
         public bool IsApproved { get; set; }
+        public Message Message { get; set; }
         public List<Message> SenderMessage { get; set; }
         public List<Message> ReceiverMessage { get; set; }
     }
