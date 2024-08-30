@@ -127,9 +127,13 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
             ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
             ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
-            ViewBag.userId=user.Id;
+            ViewBag.userId = user.Id;
             var message = _messageService.TGetMessageByMessageId(id);
-            message.IsRead = true;
+            if (message.SenderId!=user.Id)
+            {
+                message.IsRead = true;
+                _messageService.TUpdate(message);
+            }
             var messageMap = _mapper.Map<ReadMessageDto>(message);
             return View(messageMap);
         }
@@ -219,6 +223,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMessageListBySenderId(int id)
         {
+            ViewBag.senderId=id;
             var sender = await _userManager.FindByIdAsync(id.ToString());
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var value = _messageService.TGetMessageListBySenderId(id, user.Id);
@@ -235,6 +240,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetMessageListByReceiverId(int id)
         {
+            ViewBag.receiverId = id;
             var receiver = await _userManager.FindByIdAsync(id.ToString());
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var value = _messageService.TGetMessageListByReceiverId(id, user.Id);

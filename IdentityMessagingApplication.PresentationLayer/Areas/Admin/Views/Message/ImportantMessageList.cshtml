@@ -156,6 +156,18 @@
                                         </td>
                                         <td class="mailbox-attachment"></td>
                                         <td class="mailbox-date">@item.SendingTime.ToString("dd.MM.yyy.HH:ss")</td>
+                                        <td>
+                                            @{
+                                                if (@item.IsRead == true)
+                                                {
+                                                    <span>Okundu <i style="font-size:large" class="fas fa-envelope-open text-success"></i></span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Okunmadı <i style="font-size:large" class="fas fa-envelope text-danger"></i></span>
+                                                }
+                                            }
+                                        </td>
                                         <td><a href="/Admin/Message/ReadMessage/@item.MessageId">Mesajı Oku <i class="fas fa-envelope-open text-success"></i></a></td>
                                     </tr>
                                 }

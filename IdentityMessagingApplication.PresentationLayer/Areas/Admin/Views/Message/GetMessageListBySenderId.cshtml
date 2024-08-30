@@ -101,17 +101,17 @@
                             <i class="far fa-square"></i>
                         </button>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm">
+                            <button type="button" id="btn-MakeJunk" title="Çöp Kutusuna Taşı" class="btn btn-default btn-sm">
                                 <i class="far fa-trash-alt text-danger"></i>
                             </button>
-                            <button type="button" class="btn btn-default btn-sm">
+                            <button type="button" id="btn-MakeImportant" title="Önemli Kutusuna Taşı" class="btn btn-default btn-sm">
                                 <i class="fas fa-star text-warning"></i>
                             </button>
                         </div>
                         <!-- /.btn-group -->
-                        <button type="button" id=btn-MessageRefreshInbox class="btn btn-default btn-sm">
+                        <a href="/Admin/Message/GetMessageListBySenderId/@ViewBag.senderId" title="Yenile" class="btn btn-default btn-sm">
                             <i class="fas fa-sync-alt text-success"></i>
-                        </button>
+                        </a>
                         <div class="float-right">
                             1-50/200
                             <div class="btn-group">
@@ -154,6 +154,18 @@
                                             }...
                                         </td>
                                         <td class="mailbox-attachment"></td>
+                                        <td>
+                                            @{
+                                                if (@item.IsRead == true)
+                                                {
+                                                    <span>Okundu <i style="font-size:large" class="fas fa-envelope-open text-success"></i></span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Okunmadı <i style="font-size:large" class="fas fa-envelope text-danger"></i></span>
+                                                }
+                                            }
+                                        </td>
                                         <td class="mailbox-date">@item.SendingTime.ToString("dd.MM.yyy.HH:ss")</td>
                                         <td><a href="/Admin/Message/ReadMessage/@item.MessageId">Mesajı Oku <i class="fas fa-envelope-open text-success"></i></a></td>
                                     </tr>
