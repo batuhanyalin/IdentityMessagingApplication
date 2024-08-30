@@ -46,6 +46,107 @@
             }
         });
     });
+    $('#btn-MakeUnImportant').click(function () {
+        var messageIds = [];
+        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
+            messageIds.push($(this).val());
+        });
+
+        // Konsola yazdırarak kontrol edin
+        console.log('Selected messageIds:', messageIds);
+
+        if (messageIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Uyarı',
+                text: 'Lütfen en az bir mesaj seçin!',
+                confirmButtonText: 'Tamam'
+            });
+        } else {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Seçili mesajlar önemli kutusundan çıkarılacak!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, işaretle!',
+                cancelButtonText: 'Hayır, vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("MakeMessagesUnImportant", "Message", new { Area = "Admin" })',
+                        contentType: "application/json",
+                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
+                        success: function (response3) {
+                            if (response3.success) {
+                                Swal.fire('Başarılı!', response3.message, 'success');
+                                location.reload(); // Sayfayı yenile
+                            } else {
+                                Swal.fire('Hata!', response3.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+    $('#btn-MakeUnJunk').click(function () {
+        var messageIds = [];
+        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
+            messageIds.push($(this).val());
+        });
+
+        // Konsola yazdırarak kontrol edin
+        console.log('Selected messageIds:', messageIds);
+
+        if (messageIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Uyarı',
+                text: 'Lütfen en az bir mesaj seçin!',
+                confirmButtonText: 'Tamam'
+            });
+        } else {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Seçili mesajlar çöp kutusundan alınacak!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, işaretle!',
+                cancelButtonText: 'Hayır, vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("MakeMessagesUnJunk", "Message", new { Area = "Admin" })',
+                        contentType: "application/json",
+                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
+                        success: function (response3) {
+                            if (response3.success) {
+                                Swal.fire('Başarılı!', response3.message, 'success');
+                                location.reload(); // Sayfayı yenile
+                            } else {
+                                Swal.fire('Hata!', response3.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+
+
     $('#btn-MakeJunk').click(function () {
         var messageIds = [];
         $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
@@ -65,7 +166,7 @@
         } else {
             Swal.fire({
                 title: 'Emin misiniz?',
-                text: "Seçili mesajlar gereksiz olarak işaretlenecek!",
+                text: "Seçili mesajlar çöp kutusuna taşınacak!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

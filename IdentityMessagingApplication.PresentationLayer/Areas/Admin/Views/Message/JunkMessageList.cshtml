@@ -83,7 +83,7 @@
 
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search Mail">
+                            <input type="text" class="form-control" placeholder="Mesaj ara...">
                             <div class="input-group-append">
                                 <div class="btn btn-primary">
                                     <i class="fas fa-search"></i>
@@ -101,17 +101,14 @@
                             <i class="far fa-square"></i>
                         </button>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm">
-                                <i class="far fa-trash-alt text-danger"></i>
-                            </button>
-                            <button type="button" class="btn btn-default btn-sm">
-                                <i class="fas fa-star text-warning"></i>
+                            <button type="button" id="btn-MakeUnJunk" class="btn btn-default btn-sm">
+                               <i class="fas fa-trash-restore text-info"></i>
                             </button>
                         </div>
                         <!-- /.btn-group -->
-                        <button type="button" id=btn-MessageRefresh class="btn btn-default btn-sm">
+                        <a href="/Admin/Message/JunkMessageList" class="btn btn-default btn-sm">
                             <i class="fas fa-sync-alt text-success"></i>
-                        </button>
+                        </a>
                         <div class="float-right">
                             1-50/200
                             <div class="btn-group">
@@ -134,8 +131,8 @@
                                     <tr>
                                         <td>
                                             <div class="icheck-primary">
-                                                <input type="checkbox" value="@item." id="check1">
-                                                <label for="check1"></label>
+                                                <input type="checkbox" value="@item.MessageId" id="messageCheckboxId_@item.MessageId">
+                                                <label for="messageCheckboxId_@item.MessageId"></label>
                                             </div>
                                         </td>
                                         <td class="mailbox-name"><a href="/Admin/Message/GetMessageListBySenderId/@item.SenderId">@item.Sender.Name @item.Sender.Surname</a></td>

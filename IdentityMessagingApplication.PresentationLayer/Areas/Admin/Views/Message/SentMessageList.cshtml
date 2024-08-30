@@ -100,18 +100,10 @@
                         <button type="button" class="btn btn-default btn-sm checkbox-toggle">
                             <i class="far fa-square"></i>
                         </button>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm">
-                                <i class="far fa-trash-alt text-danger"></i>
-                            </button>
-                            <button type="button" class="btn btn-default btn-sm">
-                                <i class="fas fa-star text-warning"></i>
-                            </button>
-                        </div>
                         <!-- /.btn-group -->
-                        <button type="button" id=btn-MessageRefresh class="btn btn-default btn-sm">
+                        <a href="/Admin/Message/SentMessageList" class="btn btn-default btn-sm">
                             <i class="fas fa-sync-alt text-success"></i>
-                        </button>
+                        </a>
                         <div class="float-right">
                             1-50/200
                             <div class="btn-group">
@@ -134,8 +126,8 @@
                                     <tr>
                                         <td>
                                             <div class="icheck-primary">
-                                                <input type="checkbox" value="@item." id="check1">
-                                                <label for="check1"></label>
+                                                <input type="checkbox" value="@item.MessageId" id="messageCheckboxId_@item.MessageId">
+                                                <label for="messageCheckboxId_@item.MessageId"></label>
                                             </div>
                                         </td>
                                         <td class="mailbox-name"><a href="/Admin/Message/GetMessageListByReceiverId/@item.ReceiverId">@item.Receiver.Name @item.Receiver.Surname</a></td>
@@ -156,6 +148,18 @@
                                         </td>
                                         <td class="mailbox-attachment"></td>
                                         <td class="mailbox-date">@item.SendingTime.ToString("dd.MM.yyy.HH:ss")</td>
+                                        <td>
+                                            @{
+                                                if (@item.IsRead == true)
+                                                {
+                                                    <i style="font-size:large" class="fas fa-envelope-open text-success"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i style="font-size:large" class="fas fa-envelope text-danger"></i>
+                                                }
+                                            }
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
@@ -165,7 +169,7 @@
                     <!-- /.mail-box-messages -->
                 </div>
                 <!-- /.card-body -->
-       
+
             </div>
             <!-- /.card -->
         </div>

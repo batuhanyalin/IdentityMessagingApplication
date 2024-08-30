@@ -61,6 +61,30 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [Route("MakeMessagesUnImportant")]
+        public IActionResult MakeMessagesUnImportant([FromBody] List<int> messageIds)
+        {
+            if (messageIds == null || !messageIds.Any())
+            {
+                return Json(new { success = false, message = "Geçersiz mesaj ID'leri" });
+            }
+
+            foreach (var messageId in messageIds)
+            {
+                var message = _messageService.TGetById(messageId);
+                if (message != null)
+                {
+                    message.IsImportant = false;
+                    message.IsJunk = false;
+                    message.IsDraft = false;
+                    _messageService.TUpdate(message);
+                }
+            }
+
+            return Json(new { success = true, message = "Mesajlar önemli kutusundan çıkartıldı." });
+        }
+
+        [HttpPost]
         [Route("MakeMessagesJunk")]
         public IActionResult MakeMessagesJunk([FromBody] List<int> messageIds)
         {
@@ -82,6 +106,30 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             }
 
             return Json(new { success = true, message = "Mesajlar çöp kutusuna taşındı." });
+        }
+
+        [HttpPost]
+        [Route("MakeMessagesUnJunk")]
+        public IActionResult MakeMessagesUnJunk([FromBody] List<int> messageIds)
+        {
+            if (messageIds == null || !messageIds.Any())
+            {
+                return Json(new { success = false, message = "Geçersiz mesaj ID'leri" });
+            }
+
+            foreach (var messageId in messageIds)
+            {
+                var message = _messageService.TGetById(messageId);
+                if (message != null)
+                {
+                    message.IsImportant = false;
+                    message.IsDraft = false;
+                    message.IsJunk = false;
+                    _messageService.TUpdate(message);
+                }
+            }
+
+            return Json(new { success = true, message = "Mesajlar çöp kutusundan çıkartıldı." });
         }
 
         [Route("SentMessageList")]
