@@ -90,8 +90,16 @@
                 <div class="card-body p-0">
                     <div class="mailbox-read-info">
                         <h5>@Model.Subject</h5>
-                        <h6>
-                            Kimden: @Model.Sender.Name @Model.Sender.Surname - @Model.Sender.Email
+                        <h6> @{
+                            if (Model.SenderId==ViewBag.userId)
+                                {
+                                    <h6>Kime: @Model.Receiver.Name @Model.Receiver.Surname - (@Model.Receiver.Email)</h6>
+                                }
+                                else
+                                {
+                                    <h6> Kimden: @Model.Sender.Name @Model.Sender.Surname - (@Model.Sender.Email) </h6>
+                                }
+                            }                           
                             <span class="mailbox-read-time float-right">@Model.SendingTime.ToString("dd MMM yyy HH:ss")</span>
                         </h6>
                     </div>
