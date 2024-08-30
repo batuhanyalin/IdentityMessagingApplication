@@ -90,5 +90,9 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
         {
             return context.Messages.Where(x => x.ReceiverId == id).Where(x=>x.IsRead==false).Include(x => x.Sender).Include(x => x.Receiver).OrderByDescending(x => x.SendingTime).Take(3).ToList();
         }
+        public Message GetMessageByMessageId(int id)
+        {
+            return context.Messages.Where(x => x.MessageId == id).Include(x => x.Sender).Include(x => x.Receiver).FirstOrDefault();
+        }
     }
 }

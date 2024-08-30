@@ -16,6 +16,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Mapping
             CreateMap<Message, JunkMessageListDto>().ReverseMap();
             CreateMap<Message, SentMessageListDto>().ReverseMap();
             CreateMap<Message, DraftMessageListDto>().ReverseMap();
+            CreateMap<Message, ReadMessageDto>().ReverseMap();
 
             CreateMap<AppUser, CreateUserDto>().ReverseMap();
             CreateMap<AppUser, ListUserDto>().ReverseMap();

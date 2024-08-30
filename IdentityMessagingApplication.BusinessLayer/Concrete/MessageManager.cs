@@ -68,6 +68,11 @@ namespace IdentityMessagingApplication.BusinessLayer.Concrete
             return _messageDAL.GetListAll();
         }
 
+        public Message TGetMessageByMessageId(int id)
+        {
+            return _messageDAL.GetMessageByMessageId(id);
+        }
+
         public List<Message> TGetMessageListByReceiverId(int id, int id2)
         {
             return _messageDAL.GetMessageListByReceiverId(id, id2);
