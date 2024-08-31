@@ -340,6 +340,34 @@
         });
     }
 
+    $("#userList").on('click', '.btn-userMessageDetail', function () {
+        let userId = $(this).data("id");
+        console.log(userId);
+        $.ajax({
+            url: "/Admin/User/GetUserDetail/" + userId,
+            type: "GET",
+            dataType: "json",
+            success: function (funkGetUserMessageDetail) {
+                let response = JSON.parse(funkGetUserMessageDetail);
+                console.log(response);
+                // Ürün bilgilerini popup içinde doldur
+                $("#userDetailInfoInbox").val(response.InboxCount);
+                $("#userDetailInfoSent").val(response.SentboxCount);
+                $("#userDetailInfoDraft").val(response.DraftboxCount);
+                $("#userDetailInfoImportant").val(response.ImportantboxCount);
+                $("#userDetailInfoJunk").val(response.JunkboxCount);
+                // Popup'ı göster
+
+            },
+            error: function () {
+                Swal.fire({
+                    title: "HATA",
+                    text: "Kullanıcı bilgileri yüklenemedi.",
+                    icon: "warning"
+                });
+            }
+        });
+    });
 
     $("#userList").on('click', '.btn-update', function () {
         let userId = $(this).data("id");

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using IdentityMessagingApplication.BusinessLayer.Abstract;
 using IdentityMessagingApplication.BusinessLayer.ValidationRules.UserValidation;
+using IdentityMessagingApplication.DtoLayer.MessageDtos;
 using IdentityMessagingApplication.DtoLayer.RegisterDtos;
 using IdentityMessagingApplication.DtoLayer.UserDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
+using IdentityMessagingApplication.PresentationLayer.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -19,15 +21,17 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IAppUserService _appUserService;
+        private readonly IMessageService _messageService;
         private readonly IMapper _mapper;
 
-        public UserController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager, IMapper mapper, IAppUserService appUserService)
+        public UserController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager, IMapper mapper, IAppUserService appUserService, IMessageService messageService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _mapper = mapper;
             _appUserService = appUserService;
+            _messageService = messageService;
         }
         [HttpPost]
         [Route("JSUpdateUser")]
@@ -161,7 +165,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
                 user.Email = myProfileUpdateDto.Email;
                 user.City = myProfileUpdateDto.City;
                 user.Profession = myProfileUpdateDto.Profession;
-                
+
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
@@ -225,6 +229,26 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             var value = _appUserService.TGetById(id);
             var user = _mapper.Map<ListUserDto>(value);
             var jsonUser = JsonConvert.SerializeObject(user);
+            return Json(jsonUser);
+        }
+
+        [Route("GetUserDetail/{id:int}")]
+        public IActionResult GetUserDetail(int id)
+        {
+            int InboxCount = _messageService.TGetInboxMessageList(id).Count();
+            int SentboxCount = _messageService.TGetSentMessageList(id).Count();
+            int DraftboxCount = _messageService.TGetDraftMessageList(id).Count();
+            int JunkboxCount = _messageService.TGetJunkMessageList(id).Count();
+            int ImportantboxCount = _messageService.TGetImportantMessageList(id).Count();
+            MessageBoxCountModel messageBoxCountModel = new MessageBoxCountModel()
+            {
+                InboxCount = InboxCount,
+                SentboxCount = SentboxCount,
+                DraftboxCount = DraftboxCount,
+                JunkboxCount = JunkboxCount,
+                ImportantboxCount = ImportantboxCount,
+            };
+            var jsonUser = JsonConvert.SerializeObject(messageBoxCountModel);
             return Json(jsonUser);
         }
 

@@ -23,6 +23,11 @@ namespace IdentityMessagingApplication.BusinessLayer.Concrete
             _messageDAL.Delete(id);
         }
 
+        public List<Message> TGetAllMessageBoxDetailByUserId(int id)
+        {
+            return _messageDAL.GetAllMessageBoxDetailByUserId(id);
+        }
+
         public Message TGetById(int id)
         {
             return _messageDAL.GetById(id);
