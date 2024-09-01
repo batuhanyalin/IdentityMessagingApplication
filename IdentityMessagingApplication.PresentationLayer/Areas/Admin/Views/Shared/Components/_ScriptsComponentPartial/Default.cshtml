@@ -257,47 +257,6 @@
             });
         }
     });
-    function loadMessageList() {
-        $.ajax({
-            type: "get",
-            url: "/Admin/Message/JSMessageList",
-            success: function (data) {
-                // Veriyi parse edip HTML'e yerleştirin
-                let users = JSON.parse(data);
-                let tableBody = $("#messageList tbody");
-                tableBody.empty();
-                let count = 0;
-                users.forEach(function (item) {
-                    count++;
-                    let row = `<tr>
-                                                     <td>${count}</td>
-                                                      <input type="hidden" name="${item.Id}" id="${item.Id}" value="${item.Id}" />
-                                                     <td><img src="${item.ImageUrl}" style="height:70px;width:60px" /></td>
-                                                     <td>${item.Name} ${item.Surname}</td>
-                                                     <td>${item.UserName}</td>
-                                                     <td>${item.City}</td>
-                                                    <td>${item.Profession}</td>
-                                                    <td>${item.Phone}</td>
-                                                    <td>${item.SenderMessage.length}</td>
-                                                    <td>${item.ReceiverMessage.length}</td>
-                                                      <td>
-                                                     <a href="/Admin/User/ChangeIsApprovedUser/${item.Id}">
-                                                      ${item.IsApproved ? '<i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>' : '<i style="color:palevioletred;font-size:20px" class="fas fa-times-circle"></i>'}
-                                                      </a>
-                                                     </td>
-                                                      <td>
-                                                     <button class="btn btn-danger btn-delete" data-id="${item.Id}"><i class="fas fa-trash-alt"></i></button>
-                                                      </td>
-                                                     <td>
-                                                           <button class="btn btn-warning btn-update" data-id="${item.Id}" data-toggle="modal" data-target="#UpdateUser"><i class="fas fa-sync"></i></button>
-                                                     </td>
-                                                     </tr>`;
-                    tableBody.append(row);
-                });
-            }
-        });
-    }
-
 
     function loadUserList() {
         $.ajax({
@@ -311,21 +270,26 @@
                 let count = 0;
                 users.forEach(function (item) {
                     count++;
+                    // BirthDay alanını formatlama
                     let row = `<tr>
                                                  <td>${count}</td>
                                                   <input type="hidden" name="${item.Id}" id="${item.Id}" value="${item.Id}" />
                                                  <td><img src="${item.ImageUrl}" style="height:70px;width:60px" /></td>
                                                  <td>${item.Name} ${item.Surname}</td>
                                                  <td>${item.UserName}</td>
+                                                 <td>Kullanıcı</td>
                                                  <td>${item.City}</td>
                                                 <td>${item.Profession}</td>
                                                 <td>${item.Phone}</td>
-                                                <td>${item.SenderMessage.length}</td>
-                                                <td>${item.ReceiverMessage.length}</td>
+                                                <td>${item.SenderMessage.Count()}</td>
+                                                <td>${item.ReceiverMessage.Count()}</td>
                                                   <td>
                                                  <a href="/Admin/User/ChangeIsApprovedUser/${item.Id}">
                                                   ${item.IsApproved ? '<i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>' : '<i style="color:palevioletred;font-size:20px" class="fas fa-times-circle"></i>'}
                                                   </a>
+                                                 </td>
+                                                 <td>
+                                                          <button class="btn btn-info btn-userMessageDetail" data-id="${item.Id}" data-toggle="modal" data-target="#userMessageDetailPanel"><i class="fas fa-info"></i></button>
                                                  </td>
                                                   <td>
                                                  <button class="btn btn-danger btn-delete" data-id="${item.Id}"><i class="fas fa-trash-alt"></i></button>
@@ -339,6 +303,101 @@
             }
         });
     }
+
+    $("#btnuserUpdate").click(function () {
+        var formData = new FormData();
+        formData.append("Id", $("#UpdateUserId").val());
+        formData.append("UserName", $("#UpdateUserUsername").val());
+        formData.append("Name", $("#UpdateUserName").val());
+        formData.append("Surname", $("#UpdateUserSurname").val());
+        formData.append("About", $("#UpdateUserAbout").val());
+        formData.append("Profession", $("#UpdateUserProfession").val());
+        formData.append("City", $("#UpdateUserCity").val());
+        formData.append("Phone", $("#UpdateUserPhone").val());
+        formData.append("Email", $("#UpdateUserEmail").val());
+
+        // Tarih bilgisini doğrudan al
+        var birthDateValue = $("#UpdateUserBirthDay").val();
+        formData.append("BirthDay", birthDateValue); // ISO formatına dönüşüm gereksiz
+
+        var imageFile = $("#Image")[0].files[0];
+        if (imageFile) {
+            formData.append("Image", imageFile);
+        }
+
+        $.ajax({
+            url: "/Admin/User/JSUpdateUser/",
+            data: formData,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.success) {
+                    Swal.fire({
+                        title: "Güncelleme İşlemi Başarılı!",
+                        text: "Kullanıcı bilgileri başarıyla güncellendi.",
+                        icon: "success"
+                    });
+                    $("#btnUpdateClose").click();
+                    loadUserList();
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: response.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
+    $("#userList").on('click', '.btn-update', function () {
+        let userId = $(this).data("id");
+        console.log(userId);
+        $.ajax({
+            url: "/Admin/User/GetUser/" + userId,
+            type: "GET",
+            dataType: "json",
+            success: function (funkGetUser) {
+                let response = JSON.parse(funkGetUser);
+                // BirthDay alanını formatlama
+                let birthDateFormatted = "";
+                if (response.BirthDay) {
+                    let birthDate = new Date(response.BirthDay);
+                    birthDateFormatted = birthDate.toISOString().split('T')[0]; // YYYY-MM-DD formatı
+                }
+                console.log(response);
+                // Ürün bilgilerini popup içinde doldur
+                $("#UpdateUserName").val(response.Name);
+                $("#UpdateUserId").val(response.Id);
+                $("#UpdateUserSurname").val(response.Surname);
+                $("#UpdateUserAbout").val(response.About);
+                $("#UpdateUserImage").attr("src", response.ImageUrl);
+                $("#UpdateUserUsername").val(response.UserName);
+                $("#UpdateUserPhone").val(response.Phone);
+                $("#UpdateUserProfession").val(response.Profession);
+                $("#UpdateUserCity").val(response.City);
+                $("#UpdateUserBirthDay").val(birthDateFormatted);
+                $("#UpdateUserEmail").val(response.Email);
+                // Popup'ı göster
+
+            },
+            error: function () {
+                Swal.fire({
+                    title: "HATA",
+                    text: "Kullanıcı bilgileri yüklenemedi.",
+                    icon: "warning"
+                });
+            }
+        });
+    });
 
     $("#userList").on('click', '.btn-userMessageDetail', function () {
         let userId = $(this).data("id");
@@ -369,39 +428,7 @@
         });
     });
 
-    $("#userList").on('click', '.btn-update', function () {
-        let userId = $(this).data("id");
-        console.log(userId);
-        $.ajax({
-            url: "/Admin/User/GetUser/" + userId,
-            type: "GET",
-            dataType: "json",
-            success: function (funkGetUser) {
-                let response = JSON.parse(funkGetUser);
-                console.log(response);
-                // Ürün bilgilerini popup içinde doldur
-                $("#UpdateUserName").val(response.Name);
-                $("#UpdateUserId").val(response.Id);
-                $("#UpdateUserSurname").val(response.Surname);
-                $("#UpdateUserAbout").val(response.About);
-                $("#UpdateUserImage").attr("src", response.ImageUrl);
-                $("#UpdateUserUsername").val(response.UserName);
-                $("#UpdateUserPhone").val(response.Phone);
-                $("#UpdateUserProfession").val(response.Profession);
-                $("#UpdateUserCity").val(response.City);
-                $("#UpdateUserEmail").val(response.Email);
-                // Popup'ı göster
 
-            },
-            error: function () {
-                Swal.fire({
-                    title: "HATA",
-                    text: "Kullanıcı bilgileri yüklenemedi.",
-                    icon: "warning"
-                });
-            }
-        });
-    });
 
     $(document).ready(function () {
         $("form").submit(function (event) {
@@ -481,55 +508,7 @@
     });
 
 
-    $("#btnuserUpdate").click(function () {
-        var formData = new FormData();
-        formData.append("Id", $("#UpdateUserId").val());
-        formData.append("UserName", $("#UpdateUserUsername").val());
-        formData.append("Name", $("#UpdateUserName").val());
-        formData.append("Surname", $("#UpdateUserSurname").val());
-        formData.append("About", $("#UpdateUserAbout").val());
-        formData.append("Profession", $("#UpdateUserProfession").val());
-        formData.append("City", $("#UpdateUserCity").val());
-        formData.append("Phone", $("#UpdateUserPhone").val());
-        formData.append("Email", $("#UpdateUserEmail").val());
 
-        var imageFile = $("#Image")[0].files[0];
-        if (imageFile) {
-            formData.append("Image", imageFile);
-        }
-
-        $.ajax({
-            url: "/Admin/User/JSUpdateUser/",
-            data: formData,
-            type: "POST",
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                if (response.success) {
-                    Swal.fire({
-                        title: "Güncelleme İşlemi Başarılı!",
-                        text: "Kullanıcı bilgileri başarıyla güncellendi.",
-                        icon: "success"
-                    });
-                    $("#btnUpdateClose").click();
-                    loadUserList();
-                } else {
-                    Swal.fire({
-                        title: "Hata!",
-                        text: response.message,
-                        icon: "error"
-                    });
-                }
-            },
-            error: function () {
-                Swal.fire({
-                    title: "Beklenmeyen Hata!",
-                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
-                    icon: "error"
-                });
-            }
-        });
-    });
 
     $("#userList").on('click', '.btn-delete', function () {
         let userId = $(this).data('id');

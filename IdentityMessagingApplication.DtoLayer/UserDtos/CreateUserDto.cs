@@ -14,6 +14,7 @@ namespace IdentityMessagingApplication.DtoLayer.UserDtos
         public string Surname { get; set; }
         public string? About { get; set; }
         public string Profession { get; set; }
+        public DateTime? BirthDay { get; set; }
         public string City { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }

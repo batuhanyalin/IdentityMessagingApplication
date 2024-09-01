@@ -33,6 +33,15 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             _appUserService = appUserService;
             _messageService = messageService;
         }
+
+        [Route("GetUser/{id:int}")]
+        public IActionResult GetUser(int id)
+        {
+            var value = _appUserService.TGetById(id);
+            var user = _mapper.Map<ListUserDto>(value);
+            var jsonUser = JsonConvert.SerializeObject(user);
+            return Json(jsonUser);
+        }
         [HttpPost]
         [Route("JSUpdateUser")]
         public async Task<IActionResult> JSUpdateUser(UpdateUserDto updateUserDto, IFormFile Image)
@@ -64,10 +73,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
                     await Image.CopyToAsync(stream);
                 }
                 updateUserDto.ImageUrl = $"/images/users/{imageName}";
-            }
-            else if (updateUserDto.ImageUrl == null)
-            {
-                updateUserDto.ImageUrl = $"/images/no-image.jpg";
+                currentUser.ImageUrl = updateUserDto.ImageUrl;
             }
 
             currentUser.UserName = updateUserDto.UserName;
@@ -78,7 +84,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             currentUser.Phone = updateUserDto.Phone;
             currentUser.About = updateUserDto.About;
             currentUser.City = updateUserDto.City;
-            currentUser.ImageUrl = updateUserDto.ImageUrl;
+            currentUser.BirthDay = updateUserDto.BirthDay;
 
             // Kullanıcıyı güncelle
             var result = await _userManager.UpdateAsync(currentUser);
@@ -103,7 +109,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [Route("JSUserList")]
         public IActionResult JSUserList()
         {
-            var values = _userManager.Users.ToList();
+            var values = _appUserService.TGetUsersAllWithMessage();
             var user = _mapper.Map<List<ListUserDto>>(values);
             var jsonUsers = JsonConvert.SerializeObject(user);
             return Json(jsonUsers);
@@ -120,9 +126,9 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> MyProfile()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);            
-            ViewBag.sentMessageCount= _messageService.TGetSentMessageList(user.Id).Count();
-            ViewBag.inboxMessageCount= _messageService.TGetInboxMessageList(user.Id).Count();
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
             var value = _mapper.Map<MyProfileUpdateDto>(user);
             return View(value);
         }
@@ -167,6 +173,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
                 user.Email = myProfileUpdateDto.Email;
                 user.City = myProfileUpdateDto.City;
                 user.Profession = myProfileUpdateDto.Profession;
+                user.BirthDay = myProfileUpdateDto.BirthDay;
 
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
@@ -224,15 +231,6 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             return RedirectToAction("UserList");
         }
 
-
-        [Route("GetUser/{id:int}")]
-        public IActionResult GetUser(int id)
-        {
-            var value = _appUserService.TGetById(id);
-            var user = _mapper.Map<ListUserDto>(value);
-            var jsonUser = JsonConvert.SerializeObject(user);
-            return Json(jsonUser);
-        }
 
         [Route("GetUserDetail/{id:int}")]
         public IActionResult GetUserDetail(int id)

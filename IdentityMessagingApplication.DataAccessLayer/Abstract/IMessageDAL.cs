@@ -22,5 +22,6 @@ namespace IdentityMessagingApplication.DataAccessLayer.Abstract
         public List<Message> GetMessageListByReceiverId(int id,int id2);
         public Message GetMessageByMessageId(int id);
         public List<Message> GetAllMessageBoxDetailByUserId(int id);
+        public List<Message> GetAllMessagesForDashboardCount();
     }
 }

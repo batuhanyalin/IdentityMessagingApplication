@@ -28,6 +28,11 @@ namespace IdentityMessagingApplication.BusinessLayer.Concrete
             return _messageDAL.GetAllMessageBoxDetailByUserId(id);
         }
 
+        public List<Message> TGetAllMessagesForDashboardCount()
+        {
+           return _messageDAL.GetAllMessagesForDashboardCount();
+        }
+
         public Message TGetById(int id)
         {
             return _messageDAL.GetById(id);

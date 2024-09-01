@@ -85,6 +85,8 @@
                         <input type="text" id="UpdateUserAbout" class="form-control mb-2" />
                         <label for="UpdateUserProfession">Meslek</label>
                         <input type="text" id="UpdateUserProfession" class="form-control mb-2" />
+                        <label for="UpdateUserBirthDay">Doğum Tarihi</label>
+                        <input type="date" id="UpdateUserBirthDay" class="form-control mb-2" />
                     </div>
                     <div class="col col-md-6">
                         <label for="UpdateUserUsername">Kullanıcı Adı</label>
@@ -122,6 +124,7 @@
                                     <th>Görsel</th>
                                     <th>Adı Soyadı</th>
                                     <th>Kullanıcı Adı</th>
+                                    <th>Rol</th>
                                     <th>Şehir</th>
                                     <th>Meslek</th>
                                     <th>Telefon</th>
@@ -144,6 +147,7 @@
                                         <td><img src="@item.ImageUrl" style="height:70px;width:60px" /></td>
                                         <td>@item.Name @item.Surname</td>
                                         <td>@item.UserName</td>
+                                        <td>Kullanıcı</td>
                                         <td>@item.City</td>
                                         <td>@item.Profession</td>
                                         <td>@item.Phone</td>

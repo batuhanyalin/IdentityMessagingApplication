@@ -47,10 +47,18 @@
                             </div>
                         </div>
                     </div>
+                    <span style="font-size:small" class="text-danger" asp-validation-for="BirthDay"></span>
+                    <div class="input-group mb-3">                      
+                        <input type="date" class="form-control" asp-for="BirthDay" required="" placeholder="Doğum Tarihi">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-birthday-cake"></span>
+                            </div>
+                        </div>
+                    </div>
                     <span style="font-size:small" class="text-danger" asp-validation-for="City"></span>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" asp-for="City" required="" placeholder="Şehir">
-                       
+                        <input type="text" class="form-control" asp-for="City" required="" placeholder="Şehir">                       
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-city"></span>

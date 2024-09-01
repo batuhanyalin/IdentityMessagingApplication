@@ -16,12 +16,13 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Models
         public string LastRegisterAccount { get; set; }
         public string HowFromCityNameCount { get; set; }
         public AppUser AppUser { get; set; }
-        public DateTime OldestUserYears { get; set; }
-        public DateTime YoungestUserYears { get; set; }
+        public string OldestUser { get; set; }
+        public string YoungestUser { get; set; }
         public AppUser Sender { get; set; }
         public int MostSendingMessageCount { get; set; }
         public AppUser Receiver { get; set; }
         public int MostReceivingMessageCount { get; set; }
+        public string MostReceivingMessageUser { get; set; }
         public DateTime LastestSentMessageDateTime { get; set; }
         public int TotalUnApprovedUsersCount { get; set; }
 
