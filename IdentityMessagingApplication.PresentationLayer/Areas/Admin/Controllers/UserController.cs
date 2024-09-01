@@ -120,7 +120,9 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> MyProfile()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);            
+            ViewBag.sentMessageCount= _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.inboxMessageCount= _messageService.TGetInboxMessageList(user.Id).Count();
             var value = _mapper.Map<MyProfileUpdateDto>(user);
             return View(value);
         }

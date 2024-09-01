@@ -2,13 +2,24 @@
 
 <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" href="#">
-        <i class="far fa-comments"></i>
-        <span class="badge badge-danger navbar-badge">@Model.Count()</span>
+        @{
+            if (Model.Count()==0)
+            {
+                <i class="far fa-comments"></i>
+                <span style="font-size:small" class="badge badge-success navbar-badge">@Model.Count()</span>
+            }
+            else
+            {
+                <i class="far fa-comments"></i>
+                <span style="font-size:small" class="badge badge-danger navbar-badge">@Model.Count()</span>
+            }
+        }
+       
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         @foreach (var item in Model)
         {
-            <a href="#" class="dropdown-item">
+            <a href="/Admin/Message/ReadMessage/@item.MessageId" class="dropdown-item">
                 <!-- Message Start -->
                 <div class="media">
                     <img src="@item.Sender.ImageUrl" alt="User Avatar" class="img-size-50 mr-3 img-circle">
