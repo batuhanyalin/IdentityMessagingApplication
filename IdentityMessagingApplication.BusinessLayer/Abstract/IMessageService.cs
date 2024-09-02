@@ -23,5 +23,6 @@ namespace IdentityMessagingApplication.BusinessLayer.Abstract
         public Message TGetMessageByMessageId(int id);
         public List<Message> TGetAllMessageBoxDetailByUserId(int id);
         public List<Message> TGetAllMessagesForDashboardCount();
+        public int TGetMessageCountByUserId(int id);
     }
 }

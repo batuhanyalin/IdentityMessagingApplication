@@ -104,5 +104,10 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
             var values = context.Messages.Include(x => x.Sender).Include(x => x.Receiver).ToList();
             return values;
         }
+        public int GetMessageCountByUserId(int id)
+        {
+            var values = context.Messages.Where(x => x.ReceiverId == id).Count();
+            return values;
+        }
     }
 }

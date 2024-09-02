@@ -24,6 +24,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
+            var TotalUserList = _appUserService.TGetUsersAllWithMessage();
             int TotalUserCount = _appUserService.TGetListAll().Count();
             int TotalAdminCount = _appUserService.TGetListAll().Count();
             var totalMessageList = _messageService.TGetAllMessagesForDashboardCount();
@@ -33,23 +34,111 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             int TotalImportantboxMessageCount = totalMessageList.Where(x => x.IsImportant == true).Count();
             int TotalDailySentMessageCount = totalMessageList.Where(x => x.SendingTime == DateTime.Today).Count();
             int TotalDailyInboxMessageCount = totalMessageList.Where(x => x.SendingTime == DateTime.Today).Count();
-            var MostReceivingMessage = totalMessageList.GroupBy(x => x.ReceiverId);
-            var MostReceivingMessageUser =MostReceivingMessage.OrderByDescending(x=>x.Count());
 
-            var youngestUser=_appUserService.TGetListAll().OrderByDescending(x=>x.BirthDay).Take(1).FirstOrDefault();
+
+            var lastestSentMessage = totalMessageList.OrderByDescending(x => x.SendingTime).FirstOrDefault();
+            var todayInfo = DateTime.Now;
+
+            if (lastestSentMessage != null)
+            {
+                TimeSpan timeDifference = todayInfo - lastestSentMessage.SendingTime;
+
+                string timeAgo;
+                if (timeDifference.TotalDays >= 1)
+                {
+                    timeAgo = $"{(int)timeDifference.TotalDays} gün önce";
+                }
+                else if (timeDifference.TotalHours >= 1)
+                {
+                    timeAgo = $"{(int)timeDifference.TotalHours} saat önce";
+                }
+                else if (timeDifference.TotalMinutes >= 1)
+                {
+                    timeAgo = $"{(int)timeDifference.TotalMinutes} dakika önce";
+                }
+                else
+                {
+                    timeAgo = $"{(int)timeDifference.TotalSeconds} saniye önce";
+                }
+
+                ViewBag.LastestSentMessageDateTime = timeAgo;
+            }
+
+
+            var LastRegisterAccount = TotalUserList.OrderByDescending(x => x.Id).FirstOrDefault();
+
+            var AllUserCity = TotalUserList.OrderByDescending(x => x.City).ToList();
+            var MostFromCity = AllUserCity.GroupBy(x => x.City).OrderByDescending(grp => grp.Count()).Select(grp => grp.Key).First();
+
+            var receivingMessageGroups = totalMessageList.GroupBy(x => x.ReceiverId)
+                                       .Select(group => new
+                                       {
+                                           ReceiverId = group.Key,
+                                           MessageCount = group.Count()
+                                       })
+                                       .OrderByDescending(x => x.MessageCount)
+                                       .ToList();
+            var sendingMessageGroups = totalMessageList.GroupBy(x => x.SenderId)
+                                     .Select(group => new
+                                     {
+                                         SenderId = group.Key,
+                                         MessageCount = group.Count()
+                                     })
+                                     .OrderByDescending(x => x.MessageCount)
+                                     .ToList();
+            // En çok mesaj alan kullanıcı
+            var MostReceivingUser = receivingMessageGroups.FirstOrDefault();
+            var MostSendingUser = sendingMessageGroups.FirstOrDefault();
+            var GetMostReceivingMessageUser = _appUserService.TGetById(MostReceivingUser.ReceiverId);
+            var GetMostSendingMessageUser = _appUserService.TGetById(MostSendingUser.SenderId);
+
+            var YoungestUser = _appUserService.TGetListAll().OrderByDescending(x => x.BirthDay).Take(1).FirstOrDefault();
+            var OldestUser = _appUserService.TGetListAll().OrderBy(x => x.BirthDay).Take(1).FirstOrDefault();
 
             DashboardStatisticViewModel dashboardStatisticViewModel = new DashboardStatisticViewModel()
             {
                 TotalUserCount = TotalUserCount,
                 TotalAdminCount = TotalAdminCount,
-                TotalSentboxMessageCount= TotalSentboxMessageCount,
+                TotalSentboxMessageCount = TotalSentboxMessageCount,
                 TotalInboxMessageCount = TotalInboxMessageCount,
-                TotalImportantboxMessageCount= TotalImportantboxMessageCount,
+                TotalImportantboxMessageCount = TotalImportantboxMessageCount,
                 TotalJunkboxMessageCount = TotalJunkboxMessageCount,
                 TotalDailyInboxMessageCount = TotalDailyInboxMessageCount,
-                TotalDailySentMessageCount= TotalDailySentMessageCount,
-                MostReceivingMessageCount = MostReceivingMessage.Count(),
+                TotalDailySentMessageCount = TotalDailySentMessageCount,
+                MostReceivingMessageUser = GetMostReceivingMessageUser,
+                MostSendingMessageUser = GetMostSendingMessageUser,
+                MostReceivingMessageUserCount = MostReceivingUser.MessageCount,
+                MostSendingMessageUserCount = MostSendingUser.MessageCount,
+                HowFromCityNameCount = MostFromCity,
+                LastRegisterAccount = LastRegisterAccount,
+
+                OldestUser = OldestUser,
+                YoungestUser = YoungestUser,
             };
+            if (YoungestUser != null)
+            {
+                var today = DateTime.Today;
+                var age = today.Year - YoungestUser.BirthDay.Value.Year;
+
+                if (YoungestUser.BirthDay.Value.Date > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                ViewBag.youngestUserAge = age;
+            }
+            if (OldestUser != null)
+            {
+                var today = DateTime.Today;
+                var age = today.Year - OldestUser.BirthDay.Value.Year;
+
+                if (OldestUser.BirthDay.Value.Date > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                ViewBag.oldestUserAge = age;
+            }
             return View(dashboardStatisticViewModel);
         }
     }

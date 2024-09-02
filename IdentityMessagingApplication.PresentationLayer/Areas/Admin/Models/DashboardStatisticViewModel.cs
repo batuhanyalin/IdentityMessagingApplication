@@ -13,17 +13,14 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Models
         public int TotalImportantboxMessageCount { get; set; }
         public int TotalDailySentMessageCount { get; set; }
         public int TotalDailyInboxMessageCount { get; set; }
-        public string LastRegisterAccount { get; set; }
+        public AppUser LastRegisterAccount { get; set; }
         public string HowFromCityNameCount { get; set; }
-        public AppUser AppUser { get; set; }
-        public string OldestUser { get; set; }
-        public string YoungestUser { get; set; }
-        public AppUser Sender { get; set; }
-        public int MostSendingMessageCount { get; set; }
-        public AppUser Receiver { get; set; }
-        public int MostReceivingMessageCount { get; set; }
-        public string MostReceivingMessageUser { get; set; }
-        public DateTime LastestSentMessageDateTime { get; set; }
+        public AppUser OldestUser { get; set; }
+        public AppUser YoungestUser { get; set; }
+        public AppUser MostSendingMessageUser { get; set; }
+        public int MostSendingMessageUserCount {  get; set; }
+        public AppUser MostReceivingMessageUser { get; set; }
+        public int MostReceivingMessageUserCount { get; set; }
         public int TotalUnApprovedUsersCount { get; set; }
 
 
