@@ -92,6 +92,8 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             var GetMostReceivingMessageUser = _appUserService.TGetById(MostReceivingUser.ReceiverId);
             var GetMostSendingMessageUser = _appUserService.TGetById(MostSendingUser.SenderId);
 
+            var UnApprovedUsersCount = _appUserService.TGetUnApprovedUsersCount();
+
             var YoungestUser = _appUserService.TGetListAll().OrderByDescending(x => x.BirthDay).Take(1).FirstOrDefault();
             var OldestUser = _appUserService.TGetListAll().OrderBy(x => x.BirthDay).Take(1).FirstOrDefault();
 
@@ -111,7 +113,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
                 MostSendingMessageUserCount = MostSendingUser.MessageCount,
                 HowFromCityNameCount = MostFromCity,
                 LastRegisterAccount = LastRegisterAccount,
-
+                TotalUnApprovedUsersCount= UnApprovedUsersCount.Count(),
                 OldestUser = OldestUser,
                 YoungestUser = YoungestUser,
             };

@@ -34,5 +34,10 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
             var values= context.Users.Include(x=>x.SenderMessage).Include(x=>x.ReceiverMessage).ToList();
             return values;
         }
+        public List<AppUser> GetUnApprovedUsersCount()
+        {
+            var values = context.Users.Where(x=>x.IsApproved==false).ToList();
+            return values;
+        }
     }
 }

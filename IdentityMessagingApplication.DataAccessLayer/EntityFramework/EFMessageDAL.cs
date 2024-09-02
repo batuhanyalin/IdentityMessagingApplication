@@ -21,7 +21,7 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
         }
         public List<Message> GetSentMessageList(int id)
         {
-            return context.Messages.Where(x => x.SenderId == id).Where(x => x.IsJunk == false && x.IsImportant == false && x.IsDraft == false).Include(x => x.Sender).Include(x => x.Receiver).ToList();
+            return context.Messages.Where(x => x.SenderId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
         }
         public List<Message> GetDraftMessageList(int id)
         {

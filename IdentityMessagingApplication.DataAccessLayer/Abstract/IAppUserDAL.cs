@@ -11,5 +11,6 @@ namespace IdentityMessagingApplication.DataAccessLayer.Abstract
     {
         public AppUser ChangeIsApprovedUser(int id);
         public List<AppUser> GetUsersAllWithMessage();
+        public List<AppUser> GetUnApprovedUsersCount();
     }
 }
