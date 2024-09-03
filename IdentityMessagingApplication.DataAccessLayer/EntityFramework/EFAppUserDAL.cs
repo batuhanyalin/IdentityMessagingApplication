@@ -39,5 +39,11 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
             var values = context.Users.Where(x=>x.IsApproved==false).ToList();
             return values;
         }
-    }
+        public AppUser GetUserByUserName(string UserName)
+        {
+            var values = context.Users.Where(x=>x.UserName==UserName).FirstOrDefault();
+            return values;
+        }
+
+	}
 }

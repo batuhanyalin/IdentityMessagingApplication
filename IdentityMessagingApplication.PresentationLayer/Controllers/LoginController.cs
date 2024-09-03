@@ -24,7 +24,10 @@ namespace IdentityMessagingApplication.PresentationLayer.Controllers
             _mapper = mapper;
             _appUserService = appUserService;
         }
-
+        public IActionResult ApprovedCheck()
+        {
+            return View();
+        }
         [HttpGet]
         public IActionResult Index()
         {
@@ -34,6 +37,13 @@ namespace IdentityMessagingApplication.PresentationLayer.Controllers
         public async Task<IActionResult> Index(LoginDto loginDto)
         {
             var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.password, false, false);
+            
+            var user = _appUserService.TGetUserByUserName(loginDto.UserName);
+            if (result.Succeeded==true&&user.IsApproved==false)
+            {
+                await _signInManager.SignOutAsync();
+                return RedirectToAction("ApprovedCheck", "Login");
+            }
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Dashboard", new { area = "Admin" });

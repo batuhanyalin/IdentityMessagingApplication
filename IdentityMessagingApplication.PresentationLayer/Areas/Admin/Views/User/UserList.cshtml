@@ -78,25 +78,31 @@
                     <div class="col col-md-6">
                         <input type="hidden" id="UpdateUserId" />
                         <label for="UpdateUserName" class="mt-1">Adı</label>
-                        <input type="text" id="UpdateUserName" class="form-control mb-2" />
+                        <input tabindex="0" type="text" id="UpdateUserName" class="form-control mb-2" />
                         <label for="UpdateUserSurname">Soyadı</label>
-                        <input type="text" id="UpdateUserSurname" class="form-control mb-2" />
+                        <input tabindex="1" type="text" id="UpdateUserSurname" class="form-control mb-2" />
                         <label for="UpdateUserAbout">Hakkında</label>
-                        <input type="text" id="UpdateUserAbout" class="form-control mb-2" />
+                        <input tabindex ="2" type="text" id="UpdateUserAbout" class="form-control mb-2" />
                         <label for="UpdateUserProfession">Meslek</label>
-                        <input type="text" id="UpdateUserProfession" class="form-control mb-2" />
+                        <input tabindex ="3" type="text" id="UpdateUserProfession" class="form-control mb-2" />
                         <label for="UpdateUserBirthDay">Doğum Tarihi</label>
-                        <input type="date" id="UpdateUserBirthDay" class="form-control mb-2" />
+                        <input tabindex="4" type="date" id="UpdateUserBirthDay" class="form-control mb-2" />
                     </div>
                     <div class="col col-md-6">
                         <label for="UpdateUserUsername">Kullanıcı Adı</label>
-                        <input type="text" id="UpdateUserUsername" class="form-control mb-2" />
+                        <input tabindex="5" type="text" id="UpdateUserUsername" class="form-control mb-2" />
                         <label for="UpdateUserEmail">E-posta</label>
-                        <input type="text" id="UpdateUserEmail" class="form-control mb-2" />
+                        <input tabindex="6" type="text" id="UpdateUserEmail" class="form-control mb-2" />
                         <label for="UpdateUserPhone">Telefon</label>
-                        <input type="text" id="UpdateUserPhone" class="form-control mb-2" />
+                        <input tabindex="7" type="text" id="UpdateUserPhone" class="form-control mb-2" />
                         <label for="UpdateUserCity">Şehir</label>
-                        <input type="text" id="UpdateUserCity" class="form-control mb-2" />
+                        <input tabindex="8" type="text" id="UpdateUserCity" class="form-control mb-2" />
+                        <label for="UpdateUserRole">Kullanıcı Rolü</label>
+                        <select id="UpdateUserRole" class="form-control mb-2">
+                            <option value="Admin">Yönetici</option>
+                            <option value="User">Kullanıcı</option>
+                            <!-- Diğer roller burada listelenebilir -->
+                        </select>
                     </div>
                 </div>
 
@@ -185,6 +191,7 @@
                                     <th>Görsel</th>
                                     <th>Adı Soyadı</th>
                                     <th>Kullanıcı Adı</th>
+                                    <th>Rol</th>
                                     <th>Şehir</th>
                                     <th>Meslek</th>
                                     <th>Telefon</th>

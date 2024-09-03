@@ -12,5 +12,7 @@ namespace IdentityMessagingApplication.BusinessLayer.Abstract
         public AppUser TChangeIsApprovedUser(int id);
         public List<AppUser> TGetUsersAllWithMessage();
         public List<AppUser> TGetUnApprovedUsersCount();
-    }
+        public AppUser TGetUserByUserName(string UserName);
+
+	}
 }

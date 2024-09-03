@@ -45,7 +45,12 @@ namespace IdentityMessagingApplication.BusinessLayer.Concrete
            return _appUserDAL.GetUnApprovedUsersCount();
         }
 
-        public List<AppUser> TGetUsersAllWithMessage()
+		public AppUser TGetUserByUserName(string UserName)
+		{
+			return _appUserDAL.GetUserByUserName(UserName);
+		}
+
+		public List<AppUser> TGetUsersAllWithMessage()
         {
             return _appUserDAL.GetUsersAllWithMessage();
         }
