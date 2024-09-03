@@ -1,0 +1,55 @@
+﻿<aside style="background-color:lightgray;" class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="/User/Dashboard/Index" class="brand-link">
+        <img src="~/images/batuhan-yalin-logo.png" alt="BY Message App Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span style="color:#363636" class="brand-text font-weight-light">BY Message App v1.1</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        @await Component.InvokeAsync("_UserProfilePhotoSideBarComponentPartial")
+        <!-- SidebarSearch Form -->
+                <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul style="color" class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item menu-open">
+                    <a style="color:#363636;background-color:white" href="/User/Dashboard/Index" class="nav-link active">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a style="color:#363636" href="/User/Message/InboxMessageList" class="nav-link">
+                        <i class="nav-icon far fa-envelope"></i>
+                        <p>
+                            Mesajlar
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a style="color:#363636" href="/User/Profile/MyProfile" class="nav-link">
+                        <i class="nav-icon fas fa-user-edit"></i>
+                        <p>
+                            Profilim
+                        </p>
+                    </a>
+                </li>      
+                <li class="nav-item">
+                    <a style="color:#363636" href="/Login/LogOut" class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Oturumu Kapat
+                        </p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

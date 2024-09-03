@@ -1,0 +1,16 @@
+﻿<nav style="background-color:#4169e1;" class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    @await Component.InvokeAsync("_UserLeftNavbarComponentPartial")
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        @await Component.InvokeAsync("_UserSearchNavbarComponentPartial")
+        <!-- Messages Dropdown Menu -->     
+        @await Component.InvokeAsync("_UserMessageNavbarComponetPartial")
+        <li class="nav-item">
+            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </a>
+        </li>
+    </ul>
+</nav>

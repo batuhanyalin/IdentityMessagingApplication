@@ -1,0 +1,189 @@
+﻿@model List<ImportantMessageListDto>
+@{
+    ViewData["Title"] = "ImportantMessageList";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Mesaj Paneli</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/User/Dashboard/Index">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Mesaj Paneli</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <a href="/User/Message/CreateMessage" class="btn btn-primary btn-block mb-3">Yeni Mesaj Oluştur</a>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Dosyalar</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item active">
+                            <a href="/User/Message/InboxMessageList" class="nav-link">
+                                <i class="fas fa-inbox"></i> Gelen
+                                <span class="badge bg-primary float-right">@ViewBag.inboxMessageCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/User/Message/SentMessageList" class="nav-link">
+                                <i class="far fa-envelope"></i> Gönderilen
+                                <span class="badge bg-success float-right">@ViewBag.sentMessageCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/User/Message/DraftMessageList" class="nav-link">
+                                <i class="far fa-file-alt"></i> Taslaklar
+                                <span class="badge bg-info float-right">@ViewBag.draftMessageCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/User/Message/ImportantMessageList" class="nav-link">
+                                <i class="fas fa-star"></i> Önemli
+                                <span class="badge bg-warning float-right">@ViewBag.importantMessageCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/User/Message/JunkMessageList" class="nav-link">
+                                <i class="far fa-trash-alt"></i> Silinenler
+                                <span class="badge bg-danger float-right">@ViewBag.junkMessageCount</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Önemli Mesajlar</h3>
+
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" placeholder="Mesaj ara...">
+                            <div class="input-group-append">
+                                <div class="btn btn-primary">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-tools -->
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body p-0">
+                    <div class="mailbox-controls">
+                        <!-- Check all button -->
+                        <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                            <i class="far fa-square"></i>
+                        </button>
+                        <div class="btn-group">
+                            <button type="button" id="btn-MakeJunk" class="btn btn-default btn-sm">
+                                <i class="far fa-trash-alt text-danger"></i>
+                            </button>
+                            <button type="button" id="btn-MakeUnImportant" class="btn btn-default btn-sm">
+                                <i class="fas fa-star-half-alt text-info"></i>
+                            </button>
+                        </div>
+                        <!-- /.btn-group -->
+                        <a href="/User/Message/ImportantMessageList" class="btn btn-default btn-sm">
+                            <i class="fas fa-sync-alt text-success"></i>
+                        </a>
+                        <div class="float-right">
+                            1-50/200
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <!-- /.btn-group -->
+                        </div>
+                        <!-- /.float-right -->
+                    </div>
+                    <div class="table-responsive mailbox-messages">
+                        <table class="table table-hover table-striped">
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" value="@item.MessageId" id="messageCheckboxId_@item.MessageId">
+                                                <label for="messageCheckboxId_@item.MessageId"></label>
+                                            </div>
+                                        </td>
+                                        <td class="mailbox-name"><a href="/User/Message/GetMessageListBySenderId/@item.SenderId">@item.Sender.Name @item.Sender.Surname</a></td>
+                                        <td class="mailbox-subject">
+                                            <b>@item.Subject</b> -
+                                            @{
+                                                if (item.Content?.Length > 50)
+                                                {
+                                                    @item.Content.Substring(0, 200)
+                                                    ;
+                                                }
+                                                else
+                                                {
+                                                    @item.Content?.ToString()
+                                                    ;
+                                                }
+                                            }...
+                                        </td>
+                                        <td class="mailbox-attachment"></td>
+                                        <td class="mailbox-date">@item.SendingTime.ToString("dd.MM.yyy.HH:ss")</td>
+                                        <td>
+                                            @{
+                                                if (@item.IsRead == true)
+                                                {
+                                                    <span>Okundu <i style="font-size:large" class="fas fa-envelope-open text-success"></i></span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Okunmadı <i style="font-size:large" class="fas fa-envelope text-danger"></i></span>
+                                                }
+                                            }
+                                        </td>
+                                        <td><a href="/User/Message/ReadMessage/@item.MessageId">Mesajı Oku <i class="fas fa-envelope-open text-success"></i></a></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <!-- /.table -->
+                    </div>
+                    <!-- /.mail-box-messages -->
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
+

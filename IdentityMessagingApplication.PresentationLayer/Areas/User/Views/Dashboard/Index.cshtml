@@ -1,0 +1,251 @@
+﻿@model DashboardStatisticViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>Toplam Kullanıcı</h3>
+                        <h4>@Model.TotalUserCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>Toplam Yönetici</h3>
+                        <h4>@Model.TotalAdminCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>En Genç Kullanıcı</h3>
+                        <h5>@Model.YoungestUser.Name @Model.YoungestUser.Surname</h5>
+                        <h6>@Model.YoungestUser.BirthDay.Value.ToString("dd.MM.yyyy") - @ViewBag.youngestUserAge Yaşında</h6>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>En Yaşlı Kullanıcı</h3>
+                        <h5>@Model.OldestUser.Name @Model.OldestUser.Surname</h5>
+                        <h6>@Model.OldestUser.BirthDay.Value.ToString("dd.MM.yyyy") - @ViewBag.oldestUserAge Yaşında</h6>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-blind"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>Toplam Gelen Mesaj</h3>
+                        <h4>@Model.TotalInboxMessageCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-inbox"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>Toplam Giden Mesaj</h3>
+                        <h4>@Model.TotalSentboxMessageCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>Toplam Önemli Mesaj</h3>
+                        <h4>@Model.TotalImportantboxMessageCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>Toplam Çöpe Atılan Mesaj</h3>
+                        <h4>@Model.TotalJunkboxMessageCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-trash-alt"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>Bugün Gelen Toplam Mesaj</h3>
+                        <h4>@Model.TotalDailyInboxMessageCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-arrow-circle-down"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>Bugün Gönderilen T. Mesaj</h3>
+                        <h4>@Model.TotalDailySentMessageCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-arrow-circle-up"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>En Çok Mesaj Alan</h3>
+                        <h4>@Model.MostReceivingMessageUser.Name @Model.MostReceivingMessageUser.Surname - @Model.MostReceivingMessageUserCount Mesaj</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>En Çok Mesaj Gönderen</h3>
+                        <h4>@Model.MostSendingMessageUser.Name @Model.MostSendingMessageUser.Surname - @Model.MostSendingMessageUserCount Mesaj</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>En Çok Kayıtlı Olan Şehir</h3>
+                        <H4>@Model.HowFromCityNameCount</H4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-city"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>En Son Üye Olan Kişi</h3>
+                        <h4>@Model.LastRegisterAccount.Name @Model.LastRegisterAccount.Surname</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-meteor"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>En Son Atılan Mesaj</h3>
+                        <h4>@ViewBag.LastestSentMessageDateTime</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+                <!-- small card -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>Onaylanmamış Kullanıcı</h3>
+                        <h4>@Model.TotalUnApprovedUsersCount</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-user-slash"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content -->
