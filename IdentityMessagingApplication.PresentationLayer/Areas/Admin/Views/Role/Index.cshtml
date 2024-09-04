@@ -1,0 +1,120 @@
+﻿@model List<ListRoleDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-1">
+                <h1>Rol Listesi</h1>
+            </div>
+            <div class="col-sm-5 float-sm-left">
+                <button id="btn-createRolePanel" data-toggle="modal" data-target="#createRolePanel" class="btn btn-primary">Yeni Rol Ekleme</button>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Dashboard/Index/">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Rol Listesi</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<div class="modal fade" id="createRolePanel" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="staticBackdropLabel">Yeni Rol Ekleme</h1>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <label for="createRoleName" class="mt-1">Role Adı</label>
+                        <input tabindex="0" type="text" id="createRoleName" class="form-control mb-2" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCreateRoleClose" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+                <button type="button" id="btnCreateRole" class="btn btn-primary">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="UpdateRole" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="staticBackdropLabel">Rol Güncelle</h1>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col col-md-6">
+                        <input type="hidden" id="UpdateRoleId" />
+                        <label for="UpdateRoleName" class="mt-1">Role Adı</label>
+                        <input tabindex="0" type="text" id="UpdateRoleName" class="form-control mb-2" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnUpdateRoleClose" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+                <button type="button" id="btnUpdateRole" class="btn btn-primary">Güncelle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div id="roleList" class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Rol Adı</th>
+                                    <th>Role Ait Kullanıcı Sayısı</th>
+                                    <th>Sil</th>
+                                    <th>Güncelle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <input type="hidden" name="@item.Id" id="@item.Id" value="@item.Id" />
+                                        <td>@count</td>
+                                        <td>@item.Name</td>
+                                        <td>@item.</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-deleteRole" data-id=@item.Id><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-warning btn-updateRole" data-id="@item.Id" data-toggle="modal" data-target="#UpdateRole"><i class="fas fa-sync"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
