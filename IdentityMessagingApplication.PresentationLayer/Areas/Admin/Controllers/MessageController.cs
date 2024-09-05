@@ -2,13 +2,15 @@
 using IdentityMessagingApplication.BusinessLayer.Abstract;
 using IdentityMessagingApplication.DtoLayer.MessageDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin/[controller]")]
+	[Authorize(Roles = "Admin")]
+	[Route("Admin/[controller]")]
     public class MessageController : Controller
     {
         private readonly IMessageService _messageService;

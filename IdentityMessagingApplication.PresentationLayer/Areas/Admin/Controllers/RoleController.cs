@@ -2,6 +2,7 @@
 using IdentityMessagingApplication.BusinessLayer.Abstract;
 using IdentityMessagingApplication.DtoLayer.RoleDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,7 +11,8 @@ using System.Text.Json.Nodes;
 namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin/[controller]")]
+	[Authorize(Roles = "Admin")]
+	[Route("Admin/[controller]")]
     public class RoleController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

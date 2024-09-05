@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin/[controller]")]
+	[Authorize(Roles = "Admin")]
+	[Route("Admin/[controller]")]
     public class AdminLayoutController : Controller
     {     
         [Route("Index")]

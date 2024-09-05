@@ -54,7 +54,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Dashboard", new { area = "User" });
+                    return RedirectToAction("InboxMessageList", "Message", new { area = "User" });
                 }
             }
             else
@@ -67,10 +67,6 @@ namespace IdentityMessagingApplication.PresentationLayer.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Login");
-        }
-        public IActionResult error403()
-        {
-            return View();
         }
     }
 }

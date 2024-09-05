@@ -7,6 +7,7 @@ using IdentityMessagingApplication.DtoLayer.RoleDtos;
 using IdentityMessagingApplication.DtoLayer.UserDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
 using IdentityMessagingApplication.PresentationLayer.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,7 +18,8 @@ using System.Data;
 namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Route("Admin/[controller]")]
+	[Authorize(Roles = "Admin")]
+	[Route("Admin/[controller]")]
     public class UserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

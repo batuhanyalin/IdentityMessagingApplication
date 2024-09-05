@@ -25,7 +25,7 @@ builder.Services.AddDbContext<ProjectContext>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.AccessDeniedPath = new PathString("/Login/error403");
+    options.AccessDeniedPath = new PathString("/error/error403");
     options.LoginPath = new PathString("/Login/Index");
     options.LogoutPath = new PathString("/Login/Logout");
 }
@@ -43,7 +43,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseStatusCodePagesWithReExecute("/error/error404", "?code={0}");
 app.UseRouting();
 
 app.UseAuthentication();
