@@ -26,6 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\403-forbidden\README.markdown" />
+    <None Include="wwwroot\403-forbidden\src\style.scss" />
     <None Include="wwwroot\AdminLTE-3.1.0\.babelrc.js" />
     <None Include="wwwroot\AdminLTE-3.1.0\.browserslistrc" />
     <None Include="wwwroot\AdminLTE-3.1.0\.editorconfig" />

@@ -6,6 +6,7 @@ using IdentityMessagingApplication.DataAccessLayer.Abstract;
 using IdentityMessagingApplication.DataAccessLayer.Context;
 using IdentityMessagingApplication.DataAccessLayer.EntityFramework;
 using IdentityMessagingApplication.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using System.Reflection;
 
@@ -16,11 +17,20 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMessageDAL, EFMessageDAL>();
 builder.Services.AddScoped<IMessageService, MessageManager>();
 builder.Services.AddScoped<IAppUserDAL, EFAppUserDAL>();
-builder.Services.AddScoped<IAppUserService,AppUserManager>();
+builder.Services.AddScoped<IAppUserService, AppUserManager>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ProjectContext>().AddErrorDescriber<CustomIdentityValidator>();
 builder.Services.AddDbContext<ProjectContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = new PathString("/Login/error403");
+    options.LoginPath = new PathString("/Login/Index");
+    options.LogoutPath = new PathString("/Login/Logout");
+}
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,8 +46,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
@@ -52,3 +62,4 @@ app.UseEndpoints(endpoints =>
       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
 });
+

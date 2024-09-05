@@ -1,6 +1,7 @@
 ﻿using IdentityMessagingApplication.BusinessLayer.Abstract;
 using IdentityMessagingApplication.EntityLayer.Concrete;
 using IdentityMessagingApplication.PresentationLayer.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
@@ -8,6 +9,7 @@ using NuGet.Protocol.Plugins;
 namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles ="Admin")]
     [Route("Admin/[controller]")]
     public class DashboardController : Controller
     {

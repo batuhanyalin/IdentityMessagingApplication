@@ -37,16 +37,25 @@ namespace IdentityMessagingApplication.PresentationLayer.Controllers
         public async Task<IActionResult> Index(LoginDto loginDto)
         {
             var result = await _signInManager.PasswordSignInAsync(loginDto.UserName, loginDto.password, false, false);
-            
+
             var user = _appUserService.TGetUserByUserName(loginDto.UserName);
-            if (result.Succeeded==true&&user.IsApproved==false)
+            var roles = _roleManager.Roles.ToList();
+            var userRole = await _userManager.GetRolesAsync(user);
+            if (result.Succeeded == true && user.IsApproved == false)
             {
                 await _signInManager.SignOutAsync();
                 return RedirectToAction("ApprovedCheck", "Login");
             }
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                if (userRole.FirstOrDefault()=="Admin")
+                {
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Dashboard", new { area = "User" });
+                }
             }
             else
             {
@@ -59,16 +68,9 @@ namespace IdentityMessagingApplication.PresentationLayer.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Login");
         }
-
-        public IActionResult ListUser()
+        public IActionResult error403()
         {
             return View();
-        }
-        public IActionResult ListUser2()
-        {
-            var values = _appUserService.TGetListAll();
-            var jsonUsers = JsonConvert.SerializeObject(values);
-            return Json(jsonUsers);
         }
     }
 }
