@@ -1,6 +1,7 @@
 ﻿using IdentityMessagingApplication.DataAccessLayer.Abstract;
 using IdentityMessagingApplication.DataAccessLayer.Context;
 using IdentityMessagingApplication.DataAccessLayer.Repositories;
+using IdentityMessagingApplication.DtoLayer.UserDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -32,6 +33,11 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
         public List<AppUser> GetUsersAllWithMessage()
         {
             var values= context.Users.Include(x=>x.SenderMessage).Include(x=>x.ReceiverMessage).ToList();
+            return values;
+        }
+        public List<AppUser> GetUsersAllWithMessageForDashboard()
+        {
+            var values = context.Users.Include(x => x.SenderMessage).Include(x => x.ReceiverMessage).ToList();
             return values;
         }
         public List<AppUser> GetUnApprovedUsersCount()

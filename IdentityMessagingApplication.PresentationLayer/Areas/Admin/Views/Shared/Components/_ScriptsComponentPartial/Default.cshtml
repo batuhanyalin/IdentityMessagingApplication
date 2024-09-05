@@ -58,7 +58,53 @@
         });
     });
 
+    function loadRoles(selectedRole) {
+        $.ajax({
+            url: "/Admin/User/GetRoles", // Roller endpoint'ine erişim
+            type: "GET",
+            success: function (response) {
+                var roles = response; // JSON.parse(response); gerekmez
+                var $roleSelect = $("#UpdateUserRole");
+                $roleSelect.empty(); // Önceki seçenekleri temizle
+                $.each(roles, function (index, role) {
+                    var isSelected = role === selectedRole ? 'selected' : '';
+                    $roleSelect.append('<option value="' + role + '" ' + isSelected + '>' + role + '</option>');
+                });
+            },
+            error: function () {
+                Swal.fire({
+                    title: "HATA",
+                    text: "Roller yüklenemedi.",
+                    icon: "warning"
+                });
+            }
+        });
+    }
+    function loadUserRole(userId) {
+        $.ajax({
+            url: "/Admin/User/GetUserRole/" + userId, // userId ile rolü al
+            type: "GET",
+            success: function (response) {
+                var $roleSelect = $("#UpdateUserRole");
+                var userRole = response; // Kullanıcının rolü
+                var roles = $roleSelect.children('option').map(function () {
+                    return $(this).val();
+                }).get();
 
+                // Kullanıcının rolü varsa seçili yap
+                if (roles.includes(userRole)) {
+                    $roleSelect.val(userRole); // Eğer kullanıcı rolü mevcutsa seçili yap
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "HATA",
+                    text: "Kullanıcı rolü yüklenemedi.",
+                    icon: "warning"
+                });
+            }
+        });
+    }
     $("#roleList").on('click', '.btn-deleteRole', function () {
         let roleId = $(this).data('id');
         Swal.fire({
@@ -83,7 +129,7 @@
                             text: "Seçtiğiniz rol başarılı bir şekilde silindi.",
                             icon: "success"
                         });
-                       //liste scripti.
+                        //liste scripti.
                     }
                 });
             }
@@ -403,32 +449,32 @@
                     count++;
                     // BirthDay alanını formatlama
                     let row = `<tr>
-                                                     <td>${count}</td>
-                                                      <input type="hidden" name="${item.Id}" id="${item.Id}" value="${item.Id}" />
-                                                     <td><img src="${item.ImageUrl}" style="height:70px;width:60px" /></td>
-                                                     <td>${item.Name} ${item.Surname}</td>
-                                                     <td>${item.UserName}</td>
-                                                     <td>Kullanıcı</td>
-                                                     <td>${item.City}</td>
-                                                    <td>${item.Profession}</td>
-                                                    <td>${item.Phone}</td>
-                                                    <td>${item.SenderMessage.Count()}</td>
-                                                    <td>${item.ReceiverMessage.Count()}</td>
-                                                      <td>
-                                                     <a href="/Admin/User/ChangeIsApprovedUser/${item.Id}">
-                                                      ${item.IsApproved ? '<i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>' : '<i style="color:palevioletred;font-size:20px" class="fas fa-times-circle"></i>'}
-                                                      </a>
-                                                     </td>
-                                                     <td>
-                                                              <button class="btn btn-info btn-userMessageDetail" data-id="${item.Id}" data-toggle="modal" data-target="#userMessageDetailPanel"><i class="fas fa-info"></i></button>
-                                                     </td>
-                                                      <td>
-                                                     <button class="btn btn-danger btn-delete" data-id="${item.Id}"><i class="fas fa-trash-alt"></i></button>
-                                                      </td>
-                                                     <td>
-                                                           <button class="btn btn-warning btn-update" data-id="${item.Id}" data-toggle="modal" data-target="#UpdateUser"><i class="fas fa-sync"></i></button>
-                                                     </td>
-                                                     </tr>`;
+                                                         <td>${count}</td>
+                                                          <input type="hidden" name="${item.Id}" id="${item.Id}" value="${item.Id}" />
+                                                         <td><img src="${item.ImageUrl}" style="height:70px;width:60px" /></td>
+                                                         <td>${item.Name} ${item.Surname}</td>
+                                                         <td>${item.UserName}</td>
+                                                         <td>Kullanıcı</td>
+                                                         <td>${item.City}</td>
+                                                        <td>${item.Profession}</td>
+                                                        <td>${item.Phone}</td>
+                                                        <td>${item.SenderMessage.Count()}</td>
+                                                        <td>${item.ReceiverMessage.Count()}</td>
+                                                          <td>
+                                                         <a href="/Admin/User/ChangeIsApprovedUser/${item.Id}">
+                                                          ${item.IsApproved ? '<i style="color:mediumseagreen;font-size:20px" class="fas fa-check-square"></i>' : '<i style="color:palevioletred;font-size:20px" class="fas fa-times-circle"></i>'}
+                                                          </a>
+                                                         </td>
+                                                         <td>
+                                                                  <button class="btn btn-info btn-userMessageDetail" data-id="${item.Id}" data-toggle="modal" data-target="#userMessageDetailPanel"><i class="fas fa-info"></i></button>
+                                                         </td>
+                                                          <td>
+                                                         <button class="btn btn-danger btn-delete" data-id="${item.Id}"><i class="fas fa-trash-alt"></i></button>
+                                                          </td>
+                                                         <td>
+                                                               <button class="btn btn-warning btn-update" data-id="${item.Id}" data-toggle="modal" data-target="#UpdateUser"><i class="fas fa-sync"></i></button>
+                                                         </td>
+                                                         </tr>`;
                     tableBody.append(row);
                 });
             }
@@ -455,6 +501,10 @@
         if (imageFile) {
             formData.append("Image", imageFile);
         }
+
+        // Seçilen rolü formData'ya ekle
+        var selectedRole = $("#UpdateUserRole").val();
+        formData.append("Role", selectedRole);
 
         $.ajax({
             url: "/Admin/User/JSUpdateUser/",
@@ -517,9 +567,9 @@
                 $("#UpdateUserCity").val(response.City);
                 $("#UpdateUserBirthDay").val(birthDateFormatted);
                 $("#UpdateUserEmail").val(response.Email);
-                $("#UpdateUserRole").val(response.Role);
                 // Popup'ı göster
-
+                loadRoles();
+                loadUserRole(userId);
             },
             error: function () {
                 Swal.fire({

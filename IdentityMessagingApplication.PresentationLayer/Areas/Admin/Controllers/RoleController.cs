@@ -86,5 +86,6 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             _roleManager.DeleteAsync(value);
             return Json(new { success = true });
         }
+
     }
 }

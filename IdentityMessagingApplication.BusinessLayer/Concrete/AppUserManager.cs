@@ -8,6 +8,7 @@ using IdentityMessagingApplication.EntityLayer.Concrete;
 using IdentityMessagingApplication.DataAccessLayer.Context;
 using System.Runtime.CompilerServices;
 using IdentityMessagingApplication.DataAccessLayer.Abstract;
+using IdentityMessagingApplication.DtoLayer.UserDtos;
 
 namespace IdentityMessagingApplication.BusinessLayer.Concrete
 {
@@ -53,6 +54,11 @@ namespace IdentityMessagingApplication.BusinessLayer.Concrete
 		public List<AppUser> TGetUsersAllWithMessage()
         {
             return _appUserDAL.GetUsersAllWithMessage();
+        }
+
+        public List<AppUser> TGetUsersAllWithMessageForDashboard()
+        {
+            return _appUserDAL.GetUsersAllWithMessageForDashboard();
         }
 
         public void TInsert(AppUser entity)

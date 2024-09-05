@@ -1,4 +1,5 @@
-﻿using IdentityMessagingApplication.EntityLayer.Concrete;
+﻿using IdentityMessagingApplication.DtoLayer.UserDtos;
+using IdentityMessagingApplication.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace IdentityMessagingApplication.DataAccessLayer.Abstract
     {
         public AppUser ChangeIsApprovedUser(int id);
         public List<AppUser> GetUsersAllWithMessage();
+        public List<AppUser> GetUsersAllWithMessageForDashboard();
         public List<AppUser> GetUnApprovedUsersCount();
         public AppUser GetUserByUserName(string UserName);
 

@@ -24,7 +24,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         [Route("Index")]
         public IActionResult Index()
         {
-            var TotalUserList = _appUserService.TGetUsersAllWithMessage();
+            var TotalUserList = _appUserService.TGetUsersAllWithMessageForDashboard();
             int TotalUserCount = _appUserService.TGetListAll().Count();
             int TotalAdminCount = _appUserService.TGetListAll().Count();
             var totalMessageList = _messageService.TGetAllMessagesForDashboardCount();

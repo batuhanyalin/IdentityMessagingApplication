@@ -3,13 +3,16 @@ using IdentityMessagingApplication.BusinessLayer.Abstract;
 using IdentityMessagingApplication.BusinessLayer.ValidationRules.UserValidation;
 using IdentityMessagingApplication.DtoLayer.MessageDtos;
 using IdentityMessagingApplication.DtoLayer.RegisterDtos;
+using IdentityMessagingApplication.DtoLayer.RoleDtos;
 using IdentityMessagingApplication.DtoLayer.UserDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
 using IdentityMessagingApplication.PresentationLayer.Areas.Admin.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 {
@@ -34,6 +37,28 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             _messageService = messageService;
         }
 
+        [Route("GetRoles")]
+        public IActionResult GetRoles()
+        {
+            var roles = _roleManager.Roles.Select(r => r.Name).ToList();
+            return Json(roles); // JSON.stringify yerine doğrudan liste döndürebilirsiniz
+        }
+
+        [Route("GetUserRole/{userId}")]
+        public async Task<IActionResult> GetUserRole(int userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var userRole = roles.FirstOrDefault();
+
+            return Json(userRole);
+        }
+
         [Route("GetUser/{id:int}")]
         public IActionResult GetUser(int id)
         {
@@ -44,7 +69,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         }
         [HttpPost]
         [Route("JSUpdateUser")]
-        public async Task<IActionResult> JSUpdateUser(UpdateUserDto updateUserDto, IFormFile Image)
+        public async Task<IActionResult> JSUpdateUser(UpdateUserDto updateUserDto, IFormFile Image,string Role)
         {
             // Güncellenmek istenen kullanıcının mevcut bilgilerini al
             var currentUser = await _userManager.FindByIdAsync(updateUserDto.Id.ToString());
@@ -86,10 +111,20 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             currentUser.City = updateUserDto.City;
             currentUser.BirthDay = updateUserDto.BirthDay;
 
+
             // Kullanıcıyı güncelle
             var result = await _userManager.UpdateAsync(currentUser);
             if (result.Succeeded)
             {
+                // Mevcut rolleri kaldır
+                var currentRoles = await _userManager.GetRolesAsync(currentUser);
+                await _userManager.RemoveFromRolesAsync(currentUser, currentRoles);
+
+                // Yeni rolü ekle
+                if (!string.IsNullOrEmpty(Role))
+                {
+                    await _userManager.AddToRoleAsync(currentUser, Role);
+                }
                 return Json(new { success = true, message = "Kullanıcı başarıyla güncellendi!" });
             }
             else
@@ -218,6 +253,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Route("CreateUser")]
         public IActionResult CreateUser()
         {
             return View();

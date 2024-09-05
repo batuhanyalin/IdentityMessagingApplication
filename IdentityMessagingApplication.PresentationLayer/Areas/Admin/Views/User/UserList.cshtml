@@ -82,9 +82,9 @@
                         <label for="UpdateUserSurname">Soyadı</label>
                         <input tabindex="1" type="text" id="UpdateUserSurname" class="form-control mb-2" />
                         <label for="UpdateUserAbout">Hakkında</label>
-                        <input tabindex ="2" type="text" id="UpdateUserAbout" class="form-control mb-2" />
+                        <input tabindex="2" type="text" id="UpdateUserAbout" class="form-control mb-2" />
                         <label for="UpdateUserProfession">Meslek</label>
-                        <input tabindex ="3" type="text" id="UpdateUserProfession" class="form-control mb-2" />
+                        <input tabindex="3" type="text" id="UpdateUserProfession" class="form-control mb-2" />
                         <label for="UpdateUserBirthDay">Doğum Tarihi</label>
                         <input tabindex="4" type="date" id="UpdateUserBirthDay" class="form-control mb-2" />
                     </div>
@@ -98,10 +98,8 @@
                         <label for="UpdateUserCity">Şehir</label>
                         <input tabindex="8" type="text" id="UpdateUserCity" class="form-control mb-2" />
                         <label for="UpdateUserRole">Kullanıcı Rolü</label>
-                        <select id="UpdateUserRole" class="form-control mb-2">
-                            <option value="Admin">Yönetici</option>
-                            <option value="User">Kullanıcı</option>
-                            <!-- Diğer roller burada listelenebilir -->
+                        <select id="UpdateUserRole" name="role" class="form-control mb-2">
+                            <!-- Roller buraya eklenecek -->
                         </select>
                     </div>
                 </div>
@@ -130,7 +128,6 @@
                                     <th>Görsel</th>
                                     <th>Adı Soyadı</th>
                                     <th>Kullanıcı Adı</th>
-                                    <th>Rol</th>
                                     <th>Şehir</th>
                                     <th>Meslek</th>
                                     <th>Telefon</th>
@@ -153,7 +150,6 @@
                                         <td><img src="@item.ImageUrl" style="height:70px;width:60px" /></td>
                                         <td>@item.Name @item.Surname</td>
                                         <td>@item.UserName</td>
-                                        <td>Kullanıcı</td>
                                         <td>@item.City</td>
                                         <td>@item.Profession</td>
                                         <td>@item.Phone</td>
@@ -191,7 +187,6 @@
                                     <th>Görsel</th>
                                     <th>Adı Soyadı</th>
                                     <th>Kullanıcı Adı</th>
-                                    <th>Rol</th>
                                     <th>Şehir</th>
                                     <th>Meslek</th>
                                     <th>Telefon</th>
