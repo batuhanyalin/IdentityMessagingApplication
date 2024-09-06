@@ -1,4 +1,4 @@
-﻿@model List<InboxMessageListDto>
+﻿@model MessageBoxViewModel
 @{
     ViewData["Title"] = "InboxMessageList";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
@@ -42,31 +42,31 @@
                         <li class="nav-item active">
                             <a href="/Admin/Message/InboxMessageList" class="nav-link">
                                 <i class="fas fa-inbox"></i> Gelen
-                                <span class="badge bg-primary float-right">@ViewBag.inboxMessageCount</span>
+                                <span class="badge bg-primary float-right">@Model.InboxMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Message/SentMessageList" class="nav-link">
                                 <i class="far fa-envelope"></i> Gönderilen
-                                <span class="badge bg-success float-right">@ViewBag.sentMessageCount</span>
+                                <span class="badge bg-success float-right">@Model.SentMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Message/DraftMessageList" class="nav-link">
                                 <i class="far fa-file-alt"></i> Taslaklar
-                                <span class="badge bg-info float-right">@ViewBag.draftMessageCount</span>
+                                <span class="badge bg-info float-right">@Model.DraftMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Message/ImportantMessageList" class="nav-link">
                                 <i class="fas fa-star"></i> Önemli
-                                <span class="badge bg-warning float-right">@ViewBag.importantMessageCount</span>
+                                <span class="badge bg-warning float-right">@Model.ImportantMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="/Admin/Message/JunkMessageList" class="nav-link">
                                 <i class="far fa-trash-alt"></i> Silinenler
-                                <span class="badge bg-danger float-right">@ViewBag.junkMessageCount</span>
+                                <span class="badge bg-danger float-right">@Model.JunkMessageCount</span>
                             </a>
                         </li>
                     </ul>
@@ -83,14 +83,14 @@
                     <h3 class="card-title">Gelen Mesajlar</h3>
 
                     <div class="card-tools">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Mesaj ara...">
-                            <div class="input-group-append">
-                                <div class="btn btn-primary">
-                                    <i class="fas fa-search"></i>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="searchQuery" name="searchQuery" class="form-control" placeholder="Mesaj ara..." value="@Model.SearchQuery">
+                                <div class="input-group-append">
+                                    <button type="button" id="searchInboxButton" class="btn btn-primary">
+                                        <i class="fas fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
                     </div>
                     <!-- /.card-tools -->
                 </div>
@@ -128,9 +128,9 @@
                         <!-- /.float-right -->
                     </div>
                     <div class="table-responsive mailbox-messages">
-                        <table class="table table-hover table-striped">
+                        <table id="messageListContainer" class="table table-hover table-striped">
                             <tbody>
-                                @foreach (var item in Model)
+                                @foreach (var item in Model.Messages)
                                 {
                                     <tr>
                                         <td>

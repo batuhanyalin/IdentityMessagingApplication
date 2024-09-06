@@ -1,0 +1,110 @@
+﻿@model CreateMessageDto
+@{
+    ViewData["Title"] = "CreateMessage";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Yeni Mesaj</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Dashboard/Index">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Yeni Mesaj</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Dosyalar</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item active">
+                            <a href="/Admin/Message/InboxMessageList" class="nav-link">
+                                <i class="fas fa-inbox"></i> Gelen
+                                <span class="badge bg-primary float-right">@ViewBag.inboxMessageCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Message/SentMessageList" class="nav-link">
+                                <i class="far fa-envelope"></i> Gönderilen
+                                <span class="badge bg-success float-right">@ViewBag.sentMessageCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Message/DraftMessageList" class="nav-link">
+                                <i class="far fa-file-alt"></i> Taslaklar
+                                <span class="badge bg-info float-right">@ViewBag.draftMessageCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Message/ImportantMessageList" class="nav-link">
+                                <i class="fas fa-star"></i> Önemli
+                                <span class="badge bg-warning float-right">@ViewBag.importantMessageCount</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Admin/Message/JunkMessageList" class="nav-link">
+                                <i class="far fa-trash-alt"></i> Silinenler
+                                <span class="badge bg-danger float-right">@ViewBag.junkMessageCount</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-9">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Yeni Mesaj Oluştur</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label">Alıcı: </label>
+                        @Html.DropDownListFor(x => x.ReceiverId, (List<SelectListItem>)ViewBag.userList, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Subject" class="form-control" placeholder="Konu">
+                    </div>
+                    <div class="form-group">
+                        <textarea asp-for="Content" id="compose-textarea" class="form-control" style="height: 300px">     
+                    </textarea>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <div class="float-right">
+                        <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Taslağa Kaydet</button>
+                        <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Gönder</button>
+                    </div>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>

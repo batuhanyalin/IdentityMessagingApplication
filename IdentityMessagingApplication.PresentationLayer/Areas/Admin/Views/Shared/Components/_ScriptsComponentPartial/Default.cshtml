@@ -57,7 +57,10 @@
             theme: "monokai"
         });
     });
-
+    $(function () {
+        //Add text editor
+        $('#compose-textarea').summernote()
+    })
     function loadRoles(selectedRole) {
         $.ajax({
             url: "/Admin/User/GetRoles", // Roller endpoint'ine erişim

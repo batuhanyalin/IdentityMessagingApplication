@@ -109,5 +109,22 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
             var values = context.Messages.Where(x => x.ReceiverId == id).Count();
             return values;
         }
+        public List<Message> GetInboxMessagesByFilterStringByUserId(int id, string p)
+        {
+            return context.Messages
+         .Where(x => x.ReceiverId == id
+                     && x.IsJunk == false
+                     && x.IsImportant == false
+                     && x.IsDraft == false
+                     && (x.Subject.Contains(p)    // Mesajın konusu
+                         || x.Content.Contains(p)  // Mesaj içeriği
+                         || x.Sender.Name.Contains(p)  // Gönderenin adı
+                         || x.Receiver.Name.Contains(p) // Alıcının adı
+                         || x.Sender.Email.Contains(p)  // Gönderenin emaili
+                         || x.Receiver.Email.Contains(p))) // Alıcının emaili
+         .Include(x => x.Sender)
+         .Include(x => x.Receiver)
+         .ToList();
+        }
     }
 }

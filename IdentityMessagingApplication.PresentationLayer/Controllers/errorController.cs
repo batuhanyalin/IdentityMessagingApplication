@@ -8,7 +8,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Controllers
         {
             return View();
         }
-        public IActionResult error404()
+        public IActionResult error404(int code)
         {
             return View();
         }
