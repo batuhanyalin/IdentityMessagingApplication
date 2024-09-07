@@ -26,6 +26,50 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             _mapper = mapper;
             _userManager = userManager;
         }
+
+        [HttpPost]
+        [Route("DeleteMessageFromDraft")]
+        public IActionResult DeleteMessageFromDraft([FromBody] List<int> messageIds)
+        {
+            if (messageIds == null || !messageIds.Any())
+            {
+                return Json(new { success = false, message = "Geçersiz mesaj ID'leri" });
+            }
+
+            foreach (var messageId in messageIds)
+            {
+                var message = _messageService.TGetById(messageId);
+                if (message != null)
+                {
+                    _messageService.TDelete(message.MessageId);
+                }
+            }
+            return Json(new { success = true, message = "Mesajlar veritabanından kalıcı olarak silindi." });
+        }
+
+        [HttpGet]
+        [Route("EditDraftMessage/{id:int}")]
+        public async Task<IActionResult> EditDraftMessage(int id)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var mesaj=_messageService.TGetById(id);
+            var mapMessage=_mapper.Map<EditDraftMessageDto>(mesaj);
+            var users = _userManager.Users.ToList();
+            List<SelectListItem> userList = (from x in users.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = $"{x.UserName} - {x.Name} {x.Surname} - {x.Email}",
+                                                 Value = x.Id.ToString()
+                                             }).ToList();
+            ViewBag.userList = userList;
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
+            return View(mapMessage);
+        }
+
         [HttpGet]
         [Route("CreateMessage")]
         public async Task<IActionResult> CreateMessage()
