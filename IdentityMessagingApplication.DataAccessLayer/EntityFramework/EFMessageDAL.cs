@@ -21,7 +21,7 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
         }
         public List<Message> GetSentMessageList(int id)
         {
-            return context.Messages.Where(x => x.SenderId == id).Include(x => x.Sender).Include(x => x.Receiver).ToList();
+            return context.Messages.Where(x => x.SenderId == id).Where(x => x.IsDraft == false).Include(x => x.Sender).Include(x => x.Receiver).ToList();
         }
         public List<Message> GetDraftMessageList(int id)
         {
@@ -88,7 +88,7 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
 
         public List<Message> GetMessageListNavBarByReceiverId(int id)
         {
-            return context.Messages.Where(x => x.ReceiverId == id).Where(x => x.IsRead == false).Include(x => x.Sender).Include(x => x.Receiver).OrderByDescending(x => x.SendingTime).Take(3).ToList();
+            return context.Messages.Where(x => x.ReceiverId == id).Where(x => x.IsRead == false && x.IsDraft == false).Include(x => x.Sender).Include(x => x.Receiver).OrderByDescending(x => x.SendingTime).Take(3).ToList();
         }
         public Message GetMessageByMessageId(int id)
         {

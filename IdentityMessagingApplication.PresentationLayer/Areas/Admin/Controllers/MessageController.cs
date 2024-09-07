@@ -85,14 +85,28 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             createMessageDto.SenderId = user.Id;
             createMessageDto.SendingTime = DateTime.Now;
             createMessageDto.IsDraft = true;
-            var mappers = _mapper.Map<Message>(createMessageDto);
-            if (createMessageDto.IsDraft == true)
+            Message message = new Message()
             {
-                return Json(new { success = true, message = "Mesaj başarıyla gönderildi." });
-            }
-            return RedirectToAction("DraftMessageList");
-        }
+                IsImportant = createMessageDto.IsImportant,
+                IsRead = createMessageDto.IsRead,
+                IsJunk = createMessageDto.IsJunk,
+                IsDraft = createMessageDto.IsDraft,
+                ReceiverId = createMessageDto.ReceiverId,
+                SenderId = createMessageDto.SenderId,
+                Content = createMessageDto.Content,
+                Subject = createMessageDto.Subject,
+                ReadingTime = createMessageDto.ReadingTime,
+                SendingTime = createMessageDto.SendingTime,
+                MessageId = createMessageDto.MessageId,
+            };
 
+            if (message.ReceiverId == message.SenderId)
+            {
+                return Json(new { success = false, message = "Kendinize mesaj gönderemezsiniz, lütfen başka bir alıcı seçin." });
+            }
+            _messageService.TInsert(message);
+            return Json(new { success = true });
+        }
 
         [HttpPost]
         [Route("MakeMessagesImportant")]

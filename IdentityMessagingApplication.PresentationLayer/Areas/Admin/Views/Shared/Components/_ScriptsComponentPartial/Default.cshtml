@@ -83,6 +83,42 @@
         });
     });
 
+    $("#btnDraftMessage").click(function () {
+        let draftMessageData = {
+            ReceiverId: $("#CreateMessageReceiverId").val(),
+            Subject: $("#CreateMessageSubject").val(),
+            Content: $("#compose-textarea").val()
+        };
+        $.ajax({
+            url: "/Admin/Message/DraftMessage/",
+            data: draftMessageData,
+            dataType: "json",
+            type: "POST",
+            success: function (funkDraftMessage) {
+                if (funkDraftMessage.success) {
+                    Swal.fire({
+                        title: "Mesaj Taslak Kaydı Başarılı!",
+                        text: "Mesajınız taslaklara kaydedildi.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkDraftMessage.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
 
     $(function () {
         // Summernote
