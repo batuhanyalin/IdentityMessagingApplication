@@ -47,6 +47,54 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
+        [Route("CreateMessage")]
+        public async Task<IActionResult> CreateMessage(CreateMessageDto createMessageDto)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            createMessageDto.SenderId = user.Id;
+            createMessageDto.SendingTime = DateTime.Now;
+            createMessageDto.IsDraft = false;
+            Message message = new Message()
+            {
+                IsImportant = createMessageDto.IsImportant,
+                IsRead = createMessageDto.IsRead,
+                IsJunk = createMessageDto.IsJunk,
+                IsDraft = createMessageDto.IsDraft,
+                ReceiverId = createMessageDto.ReceiverId,
+                SenderId = createMessageDto.SenderId,
+                Content = createMessageDto.Content,
+                Subject = createMessageDto.Subject,
+                ReadingTime = createMessageDto.ReadingTime,
+                SendingTime = createMessageDto.SendingTime,
+                MessageId = createMessageDto.MessageId,
+            };
+
+            if (message.ReceiverId == message.SenderId)
+            {
+                return Json(new { success = false, message = "Kendinize mesaj gönderemezsiniz, lütfen başka bir alıcı seçin." });
+            }
+            _messageService.TInsert(message);
+            return Json(new { success = true });
+
+        }
+        [HttpPost]
+        [Route("DraftMessage")]
+        public async Task<IActionResult> DraftMessage(CreateMessageDto createMessageDto)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            createMessageDto.SenderId = user.Id;
+            createMessageDto.SendingTime = DateTime.Now;
+            createMessageDto.IsDraft = true;
+            var mappers = _mapper.Map<Message>(createMessageDto);
+            if (createMessageDto.IsDraft == true)
+            {
+                return Json(new { success = true, message = "Mesaj başarıyla gönderildi." });
+            }
+            return RedirectToAction("DraftMessageList");
+        }
+
+
+        [HttpPost]
         [Route("MakeMessagesImportant")]
         public IActionResult MakeMessagesImportant([FromBody] List<int> messageIds)
         {

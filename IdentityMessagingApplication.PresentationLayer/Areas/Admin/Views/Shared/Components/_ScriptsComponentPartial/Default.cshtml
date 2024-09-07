@@ -47,6 +47,43 @@
         });
     });
 
+    $("#btnCreateMessage").click(function () {
+        let createMessageData = {
+            ReceiverId: $("#CreateMessageReceiverId").val(),
+            Subject: $("#CreateMessageSubject").val(),
+            Content: $("#compose-textarea").val()
+        };
+        $.ajax({
+            url: "/Admin/Message/CreateMessage/",
+            data: createMessageData,
+            dataType: "json",
+            type: "POST",
+            success: function (funkCreateMessage) {
+                if (funkCreateMessage.success) {
+                    Swal.fire({
+                        title: "Mesaj Gönderimi Başarılı!",
+                        text: "Mesajınız ilgili kullanıcıyla iletildi.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkCreateMessage.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
+
     $(function () {
         // Summernote
         $('#summernote').summernote()
