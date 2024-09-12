@@ -27,10 +27,15 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         }
 
         [Route("Index")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var values = _roleManager.Roles.ToList();
             var roles = _mapper.Map<List<ListRoleDto>>(values);
+            foreach (var role in roles)
+            {
+                var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
+                role.UserCount = usersInRole.Count;
+            }
             return View(roles);
         }
         [Route("JSUpdateRole")]
