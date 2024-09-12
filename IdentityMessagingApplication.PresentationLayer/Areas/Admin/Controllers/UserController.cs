@@ -18,8 +18,8 @@ using System.Data;
 namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
 {
     [Area("Admin")]
-	[Authorize(Roles = "Admin")]
-	[Route("Admin/[controller]")]
+    [Authorize(Roles = "Admin")]
+    [Route("Admin/[controller]")]
     public class UserController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -71,7 +71,7 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         }
         [HttpPost]
         [Route("JSUpdateUser")]
-        public async Task<IActionResult> JSUpdateUser(UpdateUserDto updateUserDto, IFormFile Image,string Role)
+        public async Task<IActionResult> JSUpdateUser(UpdateUserDto updateUserDto, IFormFile Image, string Role)
         {
             // Güncellenmek istenen kullanıcının mevcut bilgilerini al
             var currentUser = await _userManager.FindByIdAsync(updateUserDto.Id.ToString());
@@ -315,9 +315,23 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
         }
 
         [Route("ChangeIsApprovedUser/{id:int}")]
-        public IActionResult ChangeIsApprovedUser(int id)
+        public async Task<IActionResult> ChangeIsApprovedUser(int id)
         {
-            _appUserService.TChangeIsApprovedUser(id);
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            if (user.IsApproved == false)
+            {
+                user.IsApproved = true;
+            }
+            else
+            {
+                user.IsApproved = false;
+            }
+            await _userManager.UpdateAsync(user);
+            // Mevcut rolleri kaldır
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            await _userManager.AddToRoleAsync(user, "User");
             return RedirectToAction("UserList");
         }
     }

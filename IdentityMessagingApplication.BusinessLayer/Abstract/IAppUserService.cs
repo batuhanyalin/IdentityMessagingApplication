@@ -10,7 +10,6 @@ namespace IdentityMessagingApplication.BusinessLayer.Abstract
 {
     public interface IAppUserService:IGenericService<AppUser>
     {
-        public AppUser TChangeIsApprovedUser(int id);
         public List<AppUser> TGetUsersAllWithMessage();
         public List<AppUser> TGetUsersAllWithMessageForDashboard();
         public List<AppUser> TGetUnApprovedUsersCount();

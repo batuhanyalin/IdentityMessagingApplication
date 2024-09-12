@@ -1,7 +1,7 @@
 ﻿@model ReadMessageDto
 @{
     ViewData["Title"] = "ReadMessage";
-    Layout = "~/Areas/User/Views/AdminLayout/Index.cshtml";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
 }
 
 <section class="content-header">
@@ -12,7 +12,7 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/Admin/Dashboard/Index">Anasayfa</a></li>
+                    <li class="breadcrumb-item"><a href="/User/Dashboard/Index">Anasayfa</a></li>
                     <li class="breadcrumb-item active">Mesaj Paneli</li>
                 </ol>
             </div>
@@ -24,7 +24,7 @@
 <section class="content">
     <div class="row">
         <div class="col-md-3">
-            <a href="/Admin/Message/CreateMessage" class="btn btn-primary btn-block mb-3">Yeni Mesaj Oluştur</a>
+            <a href="/User/Message/CreateMessage" class="btn btn-primary btn-block mb-3">Yeni Mesaj Oluştur</a>
 
             <div class="card">
                 <div class="card-header">
@@ -39,31 +39,31 @@
                 <div class="card-body p-0">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item active">
-                            <a href="/Admin/Message/InboxMessageList" class="nav-link">
+                            <a href="/User/Message/InboxMessageList" class="nav-link">
                                 <i class="fas fa-inbox"></i> Gelen
                                 <span class="badge bg-primary float-right">@ViewBag.inboxMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Message/SentMessageList" class="nav-link">
+                            <a href="/User/Message/SentMessageList" class="nav-link">
                                 <i class="far fa-envelope"></i> Gönderilen
                                 <span class="badge bg-success float-right">@ViewBag.sentMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Message/DraftMessageList" class="nav-link">
+                            <a href="/User/Message/DraftMessageList" class="nav-link">
                                 <i class="far fa-file-alt"></i> Taslaklar
                                 <span class="badge bg-info float-right">@ViewBag.draftMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Message/ImportantMessageList" class="nav-link">
+                            <a href="/User/Message/ImportantMessageList" class="nav-link">
                                 <i class="fas fa-star"></i> Önemli
                                 <span class="badge bg-warning float-right">@ViewBag.importantMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Message/JunkMessageList" class="nav-link">
+                            <a href="/User/Message/JunkMessageList" class="nav-link">
                                 <i class="far fa-trash-alt"></i> Silinenler
                                 <span class="badge bg-danger float-right">@ViewBag.junkMessageCount</span>
                             </a>
@@ -134,7 +134,7 @@
                                 }
                                 if (Model.SenderId == ViewBag.userId)
                                 {
-                                    <a href="/Admin/Message/ReadMessage/@Model.MessageId" title="Yenile" class="btn btn-default btn-sm">
+                                    <a href="/User/Message/ReadMessage/@Model.MessageId" title="Yenile" class="btn btn-default btn-sm">
                                         <i class="fas fa-sync-alt text-success"></i>
                                     </a>
                                 }                            

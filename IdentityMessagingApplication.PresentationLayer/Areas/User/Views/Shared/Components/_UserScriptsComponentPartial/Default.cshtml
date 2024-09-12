@@ -47,6 +47,155 @@
         });
     });
 
+
+
+    $("#btnEditDraftCreateMessage").click(function () {
+        let createMessageData = {
+            MessageId: $("#EditDraftMessageId").val(),
+            ReceiverId: $("#EditDraftMessageReceiverId").val(),
+            Subject: $("#EditDraftCreateMessageSubject").val(),
+            Content: $("#compose-textarea").val()
+        };
+        $.ajax({
+            url: "/User/Message/EditDraftCreateMessage/",
+            data: createMessageData,
+            dataType: "json",
+            type: "POST",
+            success: function (funkCreateMessage) {
+                if (funkCreateMessage.success) {
+                    Swal.fire({
+                        title: "Mesaj Gönderimi Başarılı!",
+                        text: "Mesajınız ilgili kullanıcıyla iletildi.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkCreateMessage.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
+    $("#btnEditDraftMessage").click(function () {
+        let draftMessageData = {
+            MessageId: $("#EditDraftMessageId").val(),
+            ReceiverId: $("#EditDraftMessageReceiverId").val(),
+            Subject: $("#EditDraftCreateMessageSubject").val(),
+            Content: $("#compose-textarea").val()
+        };
+        $.ajax({
+            url: "/User/Message/EditDraftMessage/",
+            data: draftMessageData,
+            dataType: "json",
+            type: "POST",
+            success: function (funkDraftMessage) {
+                if (funkDraftMessage.success) {
+                    Swal.fire({
+                        title: "Mesaj Taslak Kaydı Başarılı!",
+                        text: "Mesajınız yeniden taslaklara kaydedildi.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkDraftMessage.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
+    $("#btnCreateMessage").click(function () {
+        let createMessageData = {
+            ReceiverId: $("#CreateMessageReceiverId").val(),
+            Subject: $("#CreateMessageSubject").val(),
+            Content: $("#compose-textarea").val()
+        };
+        $.ajax({
+            url: "/User/Message/CreateMessage/",
+            data: createMessageData,
+            dataType: "json",
+            type: "POST",
+            success: function (funkCreateMessage) {
+                if (funkCreateMessage.success) {
+                    Swal.fire({
+                        title: "Mesaj Gönderimi Başarılı!",
+                        text: "Mesajınız ilgili kullanıcıyla iletildi.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkCreateMessage.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
+    $("#btnDraftMessage").click(function () {
+        let draftMessageData = {
+            ReceiverId: $("#CreateMessageReceiverId").val(),
+            Subject: $("#CreateMessageSubject").val(),
+            Content: $("#compose-textarea").val()
+        };
+        $.ajax({
+            url: "/User/Message/DraftMessage/",
+            data: draftMessageData,
+            dataType: "json",
+            type: "POST",
+            success: function (funkDraftMessage) {
+                if (funkDraftMessage.success) {
+                    Swal.fire({
+                        title: "Mesaj Taslak Kaydı Başarılı!",
+                        text: "Mesajınız taslaklara kaydedildi.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkDraftMessage.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
+
     $(function () {
         // Summernote
         $('#summernote').summernote()
@@ -57,157 +206,11 @@
             theme: "monokai"
         });
     });
-
-    $('#btn-MakeUnImportant').click(function () {
-        var messageIds = [];
-        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
-            messageIds.push($(this).val());
-        });
-
-        // Konsola yazdırarak kontrol edin
-        console.log('Selected messageIds:', messageIds);
-
-        if (messageIds.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Uyarı',
-                text: 'Lütfen en az bir mesaj seçin!',
-                confirmButtonText: 'Tamam'
-            });
-        } else {
-            Swal.fire({
-                title: 'Emin misiniz?',
-                text: "Seçili mesajlar önemli kutusundan çıkarılacak!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Evet, işaretle!',
-                cancelButtonText: 'Hayır, vazgeç'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("MakeMessagesUnImportant", "Message", new { Area = "User" })',
-                        contentType: "application/json",
-                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
-                        success: function (response3) {
-                            if (response3.success) {
-                                Swal.fire('Başarılı!', response3.message, 'success');
-                                location.reload(); // Sayfayı yenile
-                            } else {
-                                Swal.fire('Hata!', response3.message, 'error');
-                            }
-                        },
-                        error: function () {
-                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
-                        }
-                    });
-                }
-            });
-        }
+    $(function () {
+        //Add text editor
+        $('#compose-textarea').summernote()
     });
 
-    $('#btn-MakeUnJunk').click(function () {
-        var messageIds = [];
-        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
-            messageIds.push($(this).val());
-        });
-
-        // Konsola yazdırarak kontrol edin
-        console.log('Selected messageIds:', messageIds);
-
-        if (messageIds.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Uyarı',
-                text: 'Lütfen en az bir mesaj seçin!',
-                confirmButtonText: 'Tamam'
-            });
-        } else {
-            Swal.fire({
-                title: 'Emin misiniz?',
-                text: "Seçili mesajlar çöp kutusundan alınacak!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Evet, işaretle!',
-                cancelButtonText: 'Hayır, vazgeç'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("MakeMessagesUnJunk", "Message", new { Area = "User" })',
-                        contentType: "application/json",
-                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
-                        success: function (response3) {
-                            if (response3.success) {
-                                Swal.fire('Başarılı!', response3.message, 'success');
-                                location.reload(); // Sayfayı yenile
-                            } else {
-                                Swal.fire('Hata!', response3.message, 'error');
-                            }
-                        },
-                        error: function () {
-                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
-                        }
-                    });
-                }
-            });
-        }
-    });
-
-
-    $('#btn-MakeJunk').click(function () {
-        var messageIds = [];
-        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
-            messageIds.push($(this).val());
-        });
-
-        // Konsola yazdırarak kontrol edin
-        console.log('Selected messageIds:', messageIds);
-
-        if (messageIds.length === 0) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Uyarı',
-                text: 'Lütfen en az bir mesaj seçin!',
-                confirmButtonText: 'Tamam'
-            });
-        } else {
-            Swal.fire({
-                title: 'Emin misiniz?',
-                text: "Seçili mesajlar çöp kutusuna taşınacak!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Evet, işaretle!',
-                cancelButtonText: 'Hayır, vazgeç'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("MakeMessagesJunk", "Message", new { Area = "User" })',
-                        contentType: "application/json",
-                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
-                        success: function (response3) {
-                            if (response3.success) {
-                                Swal.fire('Başarılı!', response3.message, 'success');
-                                location.reload(); // Sayfayı yenile
-                            } else {
-                                Swal.fire('Hata!', response3.message, 'error');
-                            }
-                        },
-                        error: function () {
-                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
-                        }
-                    });
-                }
-            });
-        }
-    });
     $('#btn-MakeImportant').click(function () {
         var messageIds = [];
         $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
@@ -244,7 +247,7 @@
                         success: function (response3) {
                             if (response3.success) {
                                 Swal.fire('Başarılı!', response3.message, 'success');
-                                location.reload(); // Sayfayı yenile
+                           
                             } else {
                                 Swal.fire('Hata!', response3.message, 'error');
                             }
@@ -257,7 +260,237 @@
             });
         }
     });
+    $('#btn-MakeUnImportant').click(function () {
+        var messageIds = [];
+        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
+            messageIds.push($(this).val());
+        });
 
+        // Konsola yazdırarak kontrol edin
+        console.log('Selected messageIds:', messageIds);
+
+        if (messageIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Uyarı',
+                text: 'Lütfen en az bir mesaj seçin!',
+                confirmButtonText: 'Tamam'
+            });
+        } else {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Seçili mesajlar önemli kutusundan çıkarılacak!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, işaretle!',
+                cancelButtonText: 'Hayır, vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("MakeMessagesUnImportant", "Message", new { Area = "User" })',
+                        contentType: "application/json",
+                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
+                        success: function (response3) {
+                            if (response3.success) {
+                                Swal.fire('Başarılı!', response3.message, 'success');
+                             
+                            } else {
+                                Swal.fire('Hata!', response3.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+    $('#MakeMessageDelete').click(function () {
+        var messageIds = [];
+        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
+            messageIds.push($(this).val());
+        });
+
+        // Konsola yazdırarak kontrol edin
+        console.log('Selected messageIds:', messageIds);
+
+        if (messageIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Uyarı',
+                text: 'Lütfen en az bir mesaj seçin!',
+                confirmButtonText: 'Tamam'
+            });
+        } else {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Seçili mesajlar tamamen silinecek!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, işaretle!',
+                cancelButtonText: 'Hayır, vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeleteMessageFromDraft", "Message", new { Area = "User" })',
+                        contentType: "application/json",
+                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
+                        success: function (response3) {
+                            if (response3.success) {
+                                Swal.fire('Başarılı!', response3.message, 'success');
+                           
+                            } else {
+                                Swal.fire('Hata!', response3.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+    $('#btn-MakeUnJunk').click(function () {
+        var messageIds = [];
+        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
+            messageIds.push($(this).val());
+        });
+
+        // Konsola yazdırarak kontrol edin
+        console.log('Selected messageIds:', messageIds);
+
+        if (messageIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Uyarı',
+                text: 'Lütfen en az bir mesaj seçin!',
+                confirmButtonText: 'Tamam'
+            });
+        } else {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Seçili mesajlar çöp kutusundan alınacak!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, işaretle!',
+                cancelButtonText: 'Hayır, vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("MakeMessagesUnJunk", "Message", new { Area = "User" })',
+                        contentType: "application/json",
+                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
+                        success: function (response3) {
+                            if (response3.success) {
+                                Swal.fire('Başarılı!', response3.message, 'success');
+                          
+                            } else {
+                                Swal.fire('Hata!', response3.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+    $('#btn-MakeJunk').click(function () {
+        var messageIds = [];
+        $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
+            messageIds.push($(this).val());
+        });
+
+        // Konsola yazdırarak kontrol edin
+        console.log('Selected messageIds:', messageIds);
+
+        if (messageIds.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Uyarı',
+                text: 'Lütfen en az bir mesaj seçin!',
+                confirmButtonText: 'Tamam'
+            });
+        } else {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Seçili mesajlar çöp kutusuna taşınacak!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, işaretle!',
+                cancelButtonText: 'Hayır, vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("MakeMessagesJunk", "Message", new { Area = "User" })',
+                        contentType: "application/json",
+                        data: JSON.stringify(messageIds), // Düzgün bir JSON yapısı olmalı
+                        success: function (response3) {
+                            if (response3.success) {
+                                Swal.fire('Başarılı!', response3.message, 'success');
+                            } else {
+                                Swal.fire('Hata!', response3.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            Swal.fire('Hata!', 'İşlem sırasında bir hata oluştu.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+    });
+    $("#btnUpdatePassword").click(function () {
+        let userPasswords = {
+            OldPassword: $("#oldPasswordText").val(),
+            NewPassword: $("#newPasswordText").val(),
+            ConfirmPassword: $("#confirmPasswordText").val()
+        };
+        $.ajax({
+            url: "/User/User/MyProfileChangePassword/",
+            data: userPasswords,
+            dataType: "json",
+            type: "POST",
+            success: function (funkUpdatePassword) {
+                if (funkUpdatePassword.success) {
+                    Swal.fire({
+                        title: "Güncelleme İşlemi Başarılı!",
+                        text: "Parola başarıyla güncellendi.",
+                        icon: "success"
+                    });
+                    $("#btnUpdatePasswordClose").click();
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkUpdatePassword.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
     $(document).ready(function () {
         $("form").submit(function (event) {
             event.preventDefault(); // Formun otomatik olarak gönderilmesini engeller
@@ -298,40 +531,4 @@
         });
     });
 
-    $("#btnUpdatePassword").click(function () {
-        let userPasswords = {
-            OldPassword: $("#oldPasswordText").val(),
-            NewPassword: $("#newPasswordText").val(),
-            ConfirmPassword: $("#confirmPasswordText").val()
-        };
-        $.ajax({
-            url: "/User/User/MyProfileChangePassword/",
-            data: userPasswords,
-            dataType: "json",
-            type: "POST",
-            success: function (funkUpdatePassword) {
-                if (funkUpdatePassword.success) {
-                    Swal.fire({
-                        title: "Güncelleme İşlemi Başarılı!",
-                        text: "Parola başarıyla güncellendi.",
-                        icon: "success"
-                    });
-                    $("#btnUpdatePasswordClose").click();
-                } else {
-                    Swal.fire({
-                        title: "Hata!",
-                        text: funkUpdatePassword.message,
-                        icon: "error"
-                    });
-                }
-            },
-            error: function () {
-                Swal.fire({
-                    title: "Beklenmeyen Hata!",
-                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
-                    icon: "error"
-                });
-            }
-        });
-    });
 </script>

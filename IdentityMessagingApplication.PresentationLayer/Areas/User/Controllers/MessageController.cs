@@ -2,12 +2,15 @@
 using IdentityMessagingApplication.BusinessLayer.Abstract;
 using IdentityMessagingApplication.DtoLayer.MessageDtos;
 using IdentityMessagingApplication.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IdentityMessagingApplication.PresentationLayer.Areas.User.Controllers
 {
     [Area("User")]
+    [Authorize(Roles = "User")]
     [Route("User/[controller]")]
     public class MessageController : Controller
     {
@@ -20,6 +23,194 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.User.Controllers
             _messageService = messageService;
             _mapper = mapper;
             _userManager = userManager;
+        }
+        [HttpPost]
+        [Route("EditDraftMessage")]
+        public async Task<IActionResult> EditDraftMessage(EditDraftMessageDto editDraftMessageDto)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            editDraftMessageDto.SenderId = user.Id;
+            editDraftMessageDto.SendingTime = DateTime.Now;
+            editDraftMessageDto.IsDraft = true;
+            Message message = new Message()
+            {
+                IsImportant = editDraftMessageDto.IsImportant,
+                IsRead = editDraftMessageDto.IsRead,
+                IsJunk = editDraftMessageDto.IsJunk,
+                IsDraft = editDraftMessageDto.IsDraft,
+                ReceiverId = editDraftMessageDto.ReceiverId,
+                SenderId = editDraftMessageDto.SenderId,
+                Content = editDraftMessageDto.Content,
+                Subject = editDraftMessageDto.Subject,
+                ReadingTime = editDraftMessageDto.ReadingTime,
+                SendingTime = editDraftMessageDto.SendingTime,
+                MessageId = editDraftMessageDto.MessageId,
+            };
+
+            if (message.ReceiverId == message.SenderId)
+            {
+                return Json(new { success = false, message = "Kendinize mesaj gönderemezsiniz, lütfen başka bir alıcı seçin." });
+            }
+            _messageService.TUpdate(message);
+            return Json(new { success = true });
+        }
+
+
+        [HttpGet]
+        [Route("EditDraftMessage/{id:int}")]
+        public async Task<IActionResult> EditDraftMessage(int id)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var mesaj = _messageService.TGetById(id);
+            var mapMessage = _mapper.Map<EditDraftMessageDto>(mesaj);
+            var users = _userManager.Users.ToList();
+            List<SelectListItem> userList = (from x in users.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = $"{x.UserName} - {x.Name} {x.Surname} - {x.Email}",
+                                                 Value = x.Id.ToString()
+                                             }).ToList();
+            ViewBag.userList = userList;
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
+            return View(mapMessage);
+        }
+
+
+        [HttpPost]
+        [Route("DeleteMessageFromDraft")]
+        public IActionResult DeleteMessageFromDraft([FromBody] List<int> messageIds)
+        {
+            if (messageIds == null || !messageIds.Any())
+            {
+                return Json(new { success = false, message = "Geçersiz mesaj ID'leri" });
+            }
+
+            foreach (var messageId in messageIds)
+            {
+                var message = _messageService.TGetById(messageId);
+                if (message != null)
+                {
+                    _messageService.TDelete(message.MessageId);
+                }
+            }
+            return Json(new { success = true, message = "Mesajlar veritabanından kalıcı olarak silindi." });
+        }
+
+        [HttpPost]
+        [Route("DraftMessage")]
+        public async Task<IActionResult> DraftMessage(CreateMessageDto createMessageDto)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            createMessageDto.SenderId = user.Id;
+            createMessageDto.SendingTime = DateTime.Now;
+            createMessageDto.IsDraft = true;
+            Message message = new Message()
+            {
+                IsImportant = createMessageDto.IsImportant,
+                IsRead = createMessageDto.IsRead,
+                IsJunk = createMessageDto.IsJunk,
+                IsDraft = createMessageDto.IsDraft,
+                ReceiverId = createMessageDto.ReceiverId,
+                SenderId = createMessageDto.SenderId,
+                Content = createMessageDto.Content,
+                Subject = createMessageDto.Subject,
+                ReadingTime = createMessageDto.ReadingTime,
+                SendingTime = createMessageDto.SendingTime,
+                MessageId = createMessageDto.MessageId,
+            };
+
+            if (message.ReceiverId == message.SenderId)
+            {
+                return Json(new { success = false, message = "Kendinize mesaj gönderemezsiniz, lütfen başka bir alıcı seçin." });
+            }
+            _messageService.TInsert(message);
+            return Json(new { success = true });
+        }
+        [HttpPost]
+        [Route("EditDraftCreateMessage")]
+        public async Task<IActionResult> EditDraftCreateMessage(EditDraftMessageDto editDraftMessageDto)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            editDraftMessageDto.SenderId = user.Id;
+            editDraftMessageDto.SendingTime = DateTime.Now;
+            editDraftMessageDto.IsDraft = false;
+            Message message = new Message()
+            {
+                IsImportant = editDraftMessageDto.IsImportant,
+                IsRead = editDraftMessageDto.IsRead,
+                IsJunk = editDraftMessageDto.IsJunk,
+                IsDraft = editDraftMessageDto.IsDraft,
+                ReceiverId = editDraftMessageDto.ReceiverId,
+                SenderId = editDraftMessageDto.SenderId,
+                Content = editDraftMessageDto.Content,
+                Subject = editDraftMessageDto.Subject,
+                ReadingTime = editDraftMessageDto.ReadingTime,
+                SendingTime = editDraftMessageDto.SendingTime,
+                MessageId = editDraftMessageDto.MessageId,
+            };
+            if (message.ReceiverId == message.SenderId)
+            {
+                return Json(new { success = false, message = "Kendinize mesaj gönderemezsiniz, lütfen başka bir alıcı seçin." });
+            }
+            _messageService.TUpdate(message);
+            return Json(new { success = true });
+        }
+
+
+        [HttpGet]
+        [Route("CreateMessage")]
+        public async Task<IActionResult> CreateMessage()
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            ViewBag.inboxMessageCount = _messageService.TGetInboxMessageList(user.Id).Count();
+            ViewBag.sentMessageCount = _messageService.TGetSentMessageList(user.Id).Count();
+            ViewBag.draftMessageCount = _messageService.TGetDraftMessageList(user.Id).Count();
+            ViewBag.junkMessageCount = _messageService.TGetJunkMessageList(user.Id).Count();
+            ViewBag.importantMessageCount = _messageService.TGetImportantMessageList(user.Id).Count();
+            var users = _userManager.Users.ToList();
+            List<SelectListItem> userList = (from x in users.ToList()
+                                             select new SelectListItem
+                                             {
+                                                 Text = $"{x.UserName} - {x.Name} {x.Surname} - {x.Email}",
+                                                 Value = x.Id.ToString()
+                                             }).ToList();
+            ViewBag.userList = userList;
+            return View();
+        }
+        [HttpPost]
+        [Route("CreateMessage")]
+        public async Task<IActionResult> CreateMessage(CreateMessageDto createMessageDto)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            createMessageDto.SenderId = user.Id;
+            createMessageDto.SendingTime = DateTime.Now;
+            createMessageDto.IsDraft = false;
+            Message message = new Message()
+            {
+                IsImportant = createMessageDto.IsImportant,
+                IsRead = createMessageDto.IsRead,
+                IsJunk = createMessageDto.IsJunk,
+                IsDraft = createMessageDto.IsDraft,
+                ReceiverId = createMessageDto.ReceiverId,
+                SenderId = createMessageDto.SenderId,
+                Content = createMessageDto.Content,
+                Subject = createMessageDto.Subject,
+                ReadingTime = createMessageDto.ReadingTime,
+                SendingTime = createMessageDto.SendingTime,
+                MessageId = createMessageDto.MessageId,
+            };
+
+            if (message.ReceiverId == message.SenderId)
+            {
+                return Json(new { success = false, message = "Kendinize mesaj gönderemezsiniz, lütfen başka bir alıcı seçin." });
+            }
+            _messageService.TInsert(message);
+            return Json(new { success = true });
+
         }
 
         [HttpPost]

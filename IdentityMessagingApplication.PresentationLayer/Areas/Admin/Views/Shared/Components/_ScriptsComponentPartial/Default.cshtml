@@ -97,6 +97,80 @@
             });
         }
     });
+    $("#btnEditDraftCreateMessage").click(function () {
+        let createMessageData = {
+            MessageId: $("#EditDraftMessageId").val(),
+            ReceiverId: $("#EditDraftMessageReceiverId").val(),
+            Subject: $("#EditDraftCreateMessageSubject").val(),
+            Content: $("#compose-textarea").val()
+        };
+        $.ajax({
+            url: "/Admin/Message/EditDraftCreateMessage/",
+            data: createMessageData,
+            dataType: "json",
+            type: "POST",
+            success: function (funkCreateMessage) {
+                if (funkCreateMessage.success) {
+                    Swal.fire({
+                        title: "Mesaj Gönderimi Başarılı!",
+                        text: "Mesajınız ilgili kullanıcıyla iletildi.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkCreateMessage.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
+    $("#btnEditDraftMessage").click(function () {
+        let draftMessageData = {
+            MessageId: $("#EditDraftMessageId").val(),
+            ReceiverId: $("#EditDraftMessageReceiverId").val(),
+            Subject: $("#EditDraftCreateMessageSubject").val(),
+            Content: $("#compose-textarea").val()
+        };
+        $.ajax({
+            url: "/Admin/Message/EditDraftMessage/",
+            data: draftMessageData,
+            dataType: "json",
+            type: "POST",
+            success: function (funkDraftMessage) {
+                if (funkDraftMessage.success) {
+                    Swal.fire({
+                        title: "Mesaj Taslak Kaydı Başarılı!",
+                        text: "Mesajınız yeniden taslaklara kaydedildi.",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Hata!",
+                        text: funkDraftMessage.message,
+                        icon: "error"
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    title: "Beklenmeyen Hata!",
+                    text: "Bir hata oluştu, lütfen tekrar deneyin.",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
 
 
     $("#btnCreateMessage").click(function () {
@@ -361,8 +435,6 @@
             }
         });
     });
-
-
     $('#btn-MakeUnImportant').click(function () {
         var messageIds = [];
         $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
@@ -399,7 +471,7 @@
                         success: function (response3) {
                             if (response3.success) {
                                 Swal.fire('Başarılı!', response3.message, 'success');
-                                location.reload(); // Sayfayı yenile
+                             
                             } else {
                                 Swal.fire('Hata!', response3.message, 'error');
                             }
@@ -412,7 +484,6 @@
             });
         }
     });
-
     $('#btn-MakeUnJunk').click(function () {
         var messageIds = [];
         $('.mailbox-messages input[type="checkbox"]:checked').each(function () {
@@ -449,7 +520,7 @@
                         success: function (response3) {
                             if (response3.success) {
                                 Swal.fire('Başarılı!', response3.message, 'success');
-                                location.reload(); // Sayfayı yenile
+                           
                             } else {
                                 Swal.fire('Hata!', response3.message, 'error');
                             }
@@ -462,7 +533,6 @@
             });
         }
     });
-
 
     $('#btn-MakeJunk').click(function () {
         var messageIds = [];
@@ -500,7 +570,7 @@
                         success: function (response3) {
                             if (response3.success) {
                                 Swal.fire('Başarılı!', response3.message, 'success');
-                                location.reload(); // Sayfayı yenile
+                             
                             } else {
                                 Swal.fire('Hata!', response3.message, 'error');
                             }
@@ -549,7 +619,7 @@
                         success: function (response3) {
                             if (response3.success) {
                                 Swal.fire('Başarılı!', response3.message, 'success');
-                                location.reload(); // Sayfayı yenile
+                             
                             } else {
                                 Swal.fire('Hata!', response3.message, 'error');
                             }

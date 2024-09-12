@@ -21,11 +21,6 @@ namespace IdentityMessagingApplication.BusinessLayer.Concrete
             _appUserDAL = appUserDAL;
         }
 
-        public AppUser TChangeIsApprovedUser(int id)
-        {
-            return _appUserDAL.ChangeIsApprovedUser(id);
-        }
-
         public void TDelete(int id)
         {
             _appUserDAL.Delete(id);

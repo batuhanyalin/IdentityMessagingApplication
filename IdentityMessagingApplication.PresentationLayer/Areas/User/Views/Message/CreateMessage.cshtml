@@ -1,19 +1,19 @@
-﻿@model EditDraftMessageDto
+﻿@model CreateMessageDto
 @{
-    ViewData["Title"] = "EditDraftMessage";
-    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    ViewData["Title"] = "CreateMessage";
+    Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
 }
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Taslak Mesaj Düzenle</h1>
+                <h1>Yeni Mesaj</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/Admin/Dashboard/Index">Anasayfa</a></li>
-                    <li class="breadcrumb-item active">Taslak Mesaj Düzenle</li>
+                    <li class="breadcrumb-item"><a href="/User/Dashboard/Index">Anasayfa</a></li>
+                    <li class="breadcrumb-item active">Yeni Mesaj</li>
                 </ol>
             </div>
         </div>
@@ -37,31 +37,31 @@
                 <div class="card-body p-0">
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item active">
-                            <a href="/Admin/Message/InboxMessageList" class="nav-link">
+                            <a href="/User/Message/InboxMessageList" class="nav-link">
                                 <i class="fas fa-inbox"></i> Gelen
                                 <span class="badge bg-primary float-right">@ViewBag.inboxMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Message/SentMessageList" class="nav-link">
+                            <a href="/User/Message/SentMessageList" class="nav-link">
                                 <i class="far fa-envelope"></i> Gönderilen
                                 <span class="badge bg-success float-right">@ViewBag.sentMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Message/DraftMessageList" class="nav-link">
+                            <a href="/User/Message/DraftMessageList" class="nav-link">
                                 <i class="far fa-file-alt"></i> Taslaklar
                                 <span class="badge bg-info float-right">@ViewBag.draftMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Message/ImportantMessageList" class="nav-link">
+                            <a href="/User/Message/ImportantMessageList" class="nav-link">
                                 <i class="fas fa-star"></i> Önemli
                                 <span class="badge bg-warning float-right">@ViewBag.importantMessageCount</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/Admin/Message/JunkMessageList" class="nav-link">
+                            <a href="/User/Message/JunkMessageList" class="nav-link">
                                 <i class="far fa-trash-alt"></i> Silinenler
                                 <span class="badge bg-danger float-right">@ViewBag.junkMessageCount</span>
                             </a>
@@ -77,30 +77,29 @@
         <div class="col-md-9">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Mesajı Düzenle</h3>
+                    <h3 class="card-title">Yeni Mesaj Oluştur</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                     <div class="form-group">
-                        <input type="hidden" id="EditDraftMessageId" asp-for="MessageId" />
                         <label class="form-label">Alıcı: </label>
                         <div id="CreateMessageReceiver">
-                            @Html.DropDownListFor(x => x.ReceiverId, (List<SelectListItem>)ViewBag.userList, new { @id = "EditDraftMessageReceiverId", @class = "form-control" })
+                            @Html.DropDownListFor(x => x.ReceiverId, (List<SelectListItem>)ViewBag.userList, new { @id = "CreateMessageReceiverId", @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
-                        <input id="EditDraftCreateMessageSubject" asp-for="Subject" class="form-control" placeholder="Konu">
+                        <input id="CreateMessageSubject" class="form-control" placeholder="Konu">
                     </div>
                     <div class="form-group">
-                        <textarea id="compose-textarea" asp-for="Content" class="form-control" style="height: 300px">     
+                        <textarea id="compose-textarea" class="form-control" style="height: 300px">     
                     </textarea>
                     </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
                     <div class="float-right">
-                        <button type="button" id="btnEditDraftMessage" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Taslağa Kaydet</button>
-                        <button type="submit" id="btnEditDraftCreateMessage" class="btn btn-primary"><i class="far fa-envelope"></i> Gönder</button>
+                        <button type="button" id="btnDraftMessage" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Taslağa Kaydet</button>
+                        <button type="submit" id="btnCreateMessage" class="btn btn-primary"><i class="far fa-envelope"></i> Gönder</button>
                     </div>
                 </div>
                 <!-- /.card-footer -->
