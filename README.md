@@ -33,73 +33,74 @@ M&Y Yazılım Akademi Danışmanlıktan aldığım eğitim kapsamında geliştir
 * Login sistemi
 * Linq sorguları
 
+
 # Veritabanı
-![Veritabanı](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/database.png?raw=true)
+![Veritabanı](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/database.png?raw=true)
 # Giriş
-![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/login.png?raw=true)
+![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/login.png?raw=true)
 # Onay Bekleyen Kullanıcı
-![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/onay.png?raw=true)
+![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/onay.png?raw=true)
 # Yetkisiz Giriş
-![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/error403forbidden.png?raw=true)
+![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/error403forbidden.png?raw=true)
 # Sayfa Bulunamadı
-![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/error404.png?raw=true)
+![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/error404.png?raw=true)
 # Yeni Üyelik
-![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/registerValidation.png?raw=true)
+![Dashboard Mesaj Bildirimi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/registerValidation.png?raw=true)
 
 #### Dashboard
-![Dashboard](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/dashboard.png?raw=true)
+![Dashboard](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/dashboard.png?raw=true)
 #### Kullanıcı Listesi
-![Kullanıcı Listesi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/userList.png?raw=true)
+![Kullanıcı Listesi](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/userList.png?raw=true)
 #### Kullanıcı Silme
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/deleteUser.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/deleteUser.png?raw=true)
 #### Kullanıcı Güncelleme
-![Kullanıcı Güncelleme](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/updateUser.png?raw=true)
+![Kullanıcı Güncelleme](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/updateUser.png?raw=true)
 ##### Kullanıcı Detay
-![Bütün Mesajlar](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/userDetail.png?raw=true)
+![Bütün Mesajlar](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/userDetail.png?raw=true)
 #### Profilim - Kullanıcı Paneli
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/myProfileUserPanel.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/myProfileUserPanel.png?raw=true)
 #### Şifre Değiştirme
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/updatePassword.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/updatePassword.png?raw=true)
 #### Şifre Değiştirme 
 ###### Güncel Parola Yanlış
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/updatePasswordError.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/updatePasswordError.png?raw=true)
 #### Şifre Değiştirme
 ###### Girilen Şifreler Birbirleriyle Eşleşmiyor
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/updatePasswordError2.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/updatePasswordError2.png?raw=true)
 #### Gelen Mesajlar
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/inboxMessageList.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/inboxMessageList.png?raw=true)
 #### Gelen Mesajlar - Kullanıcı Paneli
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/inboxUserPanel.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/inboxUserPanel.png?raw=true)
 #### Gönderilen Mesajlar
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/sentMessageList.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/sentMessageList.png?raw=true)
 #### Taslak Mesajlar
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/draftMessageList.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/draftMessageList.png?raw=true)
 #### Mesaj Okuma
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/readMessage.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/readMessage.png?raw=true)
 #### Mesajları Çöp Kutusuna Taşı
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/moveTrash.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/moveTrash.png?raw=true)
 #### Mesajlar Çöp Kutusuna Taşındı
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/correctTrash.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/correctTrash.png?raw=true)
 #### Mesajlar Çöp Kutusundan Alma
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/moveInbox.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/moveInbox.png?raw=true)
 #### Mesajları Önemli Kutusuna Taşı
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/moveImport.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/moveImport.png?raw=true)
 #### Mesajlar Önemli Kutusuna Taşındı
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/correctImport.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/correctImport.png?raw=true)
 #### Yeni Mesaj Gönderme İşlemi
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/correctSendingMessageUserPanel.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/correctSendingMessageUserPanel.png?raw=true)
 #### Yeni Mesaj Gönderme - Kendine Mesaj Gönderemezsin Hatası
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/cantSendingYourselfError.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/cantSendingYourselfError.png?raw=true)
 #### Taslak Mesaj Kaydetme
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/editDraftMessageSave.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/editDraftMessageSave.png?raw=true)
 #### Taslak Mesajı Gönderme
-![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/editDraftMessageSending.png?raw=true)
+![Profilim](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/editDraftMessageSending.png?raw=true)
 ##### Yeni Rol Ekleme
-![Yeni Rol Ekleme](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/newRole.png?raw=true)
+![Yeni Rol Ekleme](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/newRole.png?raw=true)
 ##### Rol Güncelleme
-![Rol Güncelleme](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/updateRole.png?raw=true)
+![Rol Güncelleme](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/updateRole.png?raw=true)
 ##### Rol Silme
-![Rol Silme](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/projectScreenshots/deleteRole.png?raw=true)
+![Rol Silme](https://github.com/batuhanyalin/IdentityMessagingApplication/blob/master/IdentityMessagingApplication.PresentationLayer/wwwroot/images/projectScreenshots/deleteRole.png?raw=true)
 
 
 
