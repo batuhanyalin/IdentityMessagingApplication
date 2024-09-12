@@ -24,11 +24,15 @@ namespace IdentityMessagingApplication.PresentationLayer.Areas.Admin.Controllers
             _appUserService = userService;
         }
         [Route("Index")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            // Admin rolüne sahip kullanıcı sayısı
+            var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+            int TotalUserCount = adminUsers.Count;
+            // User rolüne sahip kullanıcı sayısı
+            var userUsers = await _userManager.GetUsersInRoleAsync("User");
+            int TotalAdminCount = userUsers.Count;
             var TotalUserList = _appUserService.TGetUsersAllWithMessageForDashboard();
-            int TotalUserCount = _appUserService.TGetListAll().Count();
-            int TotalAdminCount = _appUserService.TGetListAll().Count();
             var totalMessageList = _messageService.TGetAllMessagesForDashboardCount();
             int TotalSentboxMessageCount = totalMessageList.Count();
             int TotalInboxMessageCount = totalMessageList.Count();

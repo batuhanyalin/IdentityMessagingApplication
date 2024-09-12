@@ -19,7 +19,7 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
 
         public List<AppUser> GetUsersAllWithMessage()
         {
-            var values= context.Users.Include(x=>x.SenderMessage).Include(x=>x.ReceiverMessage).ToList();
+            var values = context.Users.Include(x => x.SenderMessage).Include(x => x.ReceiverMessage).ToList();
             return values;
         }
         public List<AppUser> GetUsersAllWithMessageForDashboard()
@@ -29,14 +29,14 @@ namespace IdentityMessagingApplication.DataAccessLayer.EntityFramework
         }
         public List<AppUser> GetUnApprovedUsersCount()
         {
-            var values = context.Users.Where(x=>x.IsApproved==false).ToList();
+            var values = context.Users.Where(x => x.IsApproved == false).ToList();
             return values;
         }
         public AppUser GetUserByUserName(string UserName)
         {
-            var values = context.Users.Where(x=>x.UserName==UserName).FirstOrDefault();
+            var values = context.Users.Where(x => x.UserName == UserName).FirstOrDefault();
             return values;
         }
 
-	}
+    }
 }
